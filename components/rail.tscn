@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://x1km4v8fd06n"]
+
+[ext_resource type="Script" uid="uid://cxorov257t5mx" path="res://components/rail.gd" id="1_8wt5q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7anx"]
+size = Vector3(20, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ur00s"]
+size = Vector3(20, 0.24420166, 0.48322755)
+
+[sub_resource type="Curve3D" id="Curve3D_e7anx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wndkh"]
+albedo_color = Color(0.37183675, 0.6835503, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ly3hx"]
+material = SubResource("StandardMaterial3D_wndkh")
+radius = 0.1
+height = 0.2
+
+[node name="Rail" type="Area3D" unique_id=858951306 node_paths=PackedStringArray("follow_object", "follow_path", "path")]
+script = ExtResource("1_8wt5q")
+follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
+follow_path = NodePath("Path3D/PathFollow3D")
+path = NodePath("Path3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=163772028]
+mesh = SubResource("BoxMesh_e7anx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1272092348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5516052, 0.008215331)
+shape = SubResource("BoxShape3D_ur00s")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=7677452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.50939953, 0)
+curve = SubResource("Curve3D_e7anx")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=660337678]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+loop = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D" unique_id=1437335367]
+mesh = SubResource("SphereMesh_ly3hx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

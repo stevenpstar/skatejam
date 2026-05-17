@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bb87i66sdtnfv"]
+
+[ext_resource type="Script" uid="uid://dt4ff7gwccn0" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://dlcilud4xlrp0" path="res://assets/models/skateboardtest.glb" id="2_rkbax"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oul6g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+height = 2.210205
+
+[node name="Player" type="CharacterBody3D" unique_id=1559029232]
+script = ExtResource("1_oul6g")
+
+[node name="skateboardtest" parent="." unique_id=1157741955 instance=ExtResource("2_rkbax")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=279928533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2087293, 0)
+mesh = SubResource("CapsuleMesh_oul6g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1578463652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1036267, 0)
+shape = SubResource("CapsuleShape3D_kqu6x")
+
+[node name="FrontWheelRayOrigin" type="Node3D" parent="." unique_id=379892356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20699841, -0.4008075)
+
+[node name="BackWheelRayOrigin" type="Node3D" parent="." unique_id=498889283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20699841, 0.401)

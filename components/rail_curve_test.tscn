@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://c6x05mf40kqth"]
+
+[ext_resource type="Script" uid="uid://cxorov257t5mx" path="res://components/rail.gd" id="1_woocu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2uwtu"]
+size = Vector3(10.194794, 2.017273, 0.15583801)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwp4e"]
+size = Vector3(10, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_woocu"]
+albedo_color = Color(0.24786553, 0.8114904, 7.70092e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_woocu"]
+size = Vector3(3, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uwtu"]
+albedo_color = Color(0.5421936, 0.7466436, 0.25789875, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2uwtu"]
+size = Vector3(10, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwp4e"]
+albedo_color = Color(0.21551558, 0.50422543, 0.12223499, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwp4e"]
+size = Vector3(2.1265259, 2.0689697, 12.4401245)
+
+[sub_resource type="Curve3D" id="Curve3D_woocu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 1.5, 0, 0, 0, 0, 0, 0, 0, 5, 1.5, 0, 0, 0, 0, 0, 0, 0, 7.1, 1.5, -2.1, 0, 0, 0, 0, 0, 0, 7.1, 1.5, -12.1),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_2uwtu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n6m7p"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="Rail" type="Area3D" unique_id=257497350 node_paths=PackedStringArray("follow_object", "follow_path", "path")]
+collision_layer = 3
+script = ExtResource("1_woocu")
+follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
+follow_path = NodePath("Path3D/PathFollow3D")
+path = NodePath("Path3D")
+metadata/_custom_type_script = "uid://cxorov257t5mx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1732403702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025527954, 0.5086365, 0.0031051636)
+shape = SubResource("BoxShape3D_2uwtu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=5341029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_uwp4e")
+surface_material_override/0 = SubResource("StandardMaterial3D_woocu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1584840188]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 6.033, 0.5, -1.054)
+mesh = SubResource("BoxMesh_woocu")
+surface_material_override/0 = SubResource("StandardMaterial3D_2uwtu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=636670026]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 7.098, 0.5, -7.09)
+mesh = SubResource("BoxMesh_2uwtu")
+surface_material_override/0 = SubResource("StandardMaterial3D_uwp4e")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=770120497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1133223, 0.53448486, -5.936516)
+shape = SubResource("BoxShape3D_uwp4e")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1892662156]
+curve = SubResource("Curve3D_woocu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1523519324]
+transform = Transform3D(-4.3711356e-08, 0, -0.9999993, 0, 1, 0, 0.9999993, 0, -4.3711356e-08, -5, 1.5, 0)
+loop = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D" unique_id=1128689990]
+visible = false
+mesh = SubResource("SphereMesh_2uwtu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/MeshInstance3D" unique_id=1842637568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2245473e-08, 0, -0.50891685)
+visible = false
+mesh = SubResource("BoxMesh_n6m7p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
