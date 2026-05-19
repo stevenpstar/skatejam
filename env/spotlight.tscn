@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c0horkeywn7dt"]
+
+[ext_resource type="Material" uid="uid://dr065eokt3cqs" path="res://assets/materials/env/building_grey_1.tres" id="1_djipj"]
+[ext_resource type="Material" uid="uid://b1rh7cp1grha6" path="res://assets/materials/env/lightpost.tres" id="2_svkei"]
+
+[node name="Spotlight" type="Node3D" unique_id=481202666]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1932134574]
+spot_range = 43.980988
+spot_angle = 9.49355
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=1591105566]
+transform = Transform3D(5.196, 0, 0, 0, -4.371139e-08, -5.196, 0, 1, -2.2712437e-07, 0, 0, 0)
+radius = 0.375
+sides = 16
+material = ExtResource("1_djipj")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="." unique_id=232353694]
+transform = Transform3D(5.196, 0, 0, 0, -4.371139e-08, -5.196, 0, 1, -2.2712437e-07, 0, 0, -0.5318165)
+radius = 0.317
+sides = 16
+material = ExtResource("2_svkei")

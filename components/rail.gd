@@ -9,6 +9,8 @@ var grind_velocity: float = 0.0
 var max_grind_velocity: float = 0.25
 var accel: float = 0.005
 var dir: int = 1
+var prev_position: Vector3 = Vector3.ZERO
+var current_position: Vector3 = Vector3.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,18 +25,21 @@ func _physics_process(delta: float) -> void:
 		grind_velocity += accel
 		if grind_velocity > max_grind_velocity:
 			grind_velocity = max_grind_velocity
-		follow_path.progress += (entry_velocity / 100.0 + grind_velocity) * dir
-		print("baked path length = ", path.curve.get_baked_length())
+	#	follow_path.progress += (entry_velocity / 100.0 + grind_velocity) * dir
 		if p.grinding_rail.follow_path.progress <= 0.0 or p.grinding_rail.follow_path.progress >= p.grinding_rail.path.curve.get_baked_length():
-			print("we reached the end or start: ", p.grinding_rail.follow_path.progress)
-			p.stop_grinding()
+			p.jump(delta)
 			#follow_path.progress_ratio = 0.1
+
+func set_progress(player_position: Vector3) -> void:
+	var local_pos = path.to_local(player_position)
+	var offset = path.curve.get_closest_offset(local_pos)
+	follow_path.progress = offset
 
 func _on_body_entered(body: Node3D) -> void:
 	var player = body as Player
 	if player and player.grinding == false:
-		print("entered a rail")
 		grind_velocity = 0.0
+		player.grind_input = false
 		var next_position = player.global_position + player.velocity
 		var local_pos = path.to_local(player.global_position)
 		var next_local_pos = path.to_local(next_position)
@@ -45,7 +50,6 @@ func _on_body_entered(body: Node3D) -> void:
 		player.grind_follow = follow_object
 		player.grinding_rail = self
 		follow_path.progress = offset
-		print("progress = ", follow_path.progress)
 		self.entry_velocity = player.current_velocity
 		if next_offset < offset:
 			dir = -1

@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4ic3r5xucgdv"]
+
+[ext_resource type="Texture2D" uid="uid://de62j68de5ipa" path="res://assets/textures/noiseTexture1.png" id="1_nh6s1"]
+
+[resource]
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0.83725625, 0.8372969, 0.8543141, 1)
+albedo_texture = ExtResource("1_nh6s1")
+uv1_scale = Vector3(10, 10, 10)

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://yxc8n1h31dq1"]
+
+[resource]
+resource_name = "pants"
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0.40718478, 0.6392996, 0.733509, 1)
+roughness = 0.5

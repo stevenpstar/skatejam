@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bgj8rop82mmmf"]
+
+[resource]
+resource_name = "brim"
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0.16455196, 0.16455196, 0.16455196, 1)
+roughness = 0.5

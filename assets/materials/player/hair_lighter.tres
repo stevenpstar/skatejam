@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bqix07fjqk82l"]
+
+[resource]
+resource_name = "hair_lighter"
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0.023315828, 0.544873, 0.9064896, 1)
+roughness = 0.5

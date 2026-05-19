@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b1rh7cp1grha6"]
+
+[resource]
+resource_name = "lightpost"
+cull_mode = 2
+albedo_color = Color(3.7792044, 3.8082485, 3.851815, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 1.26

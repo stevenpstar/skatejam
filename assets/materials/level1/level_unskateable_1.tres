@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c07uuvwyng2ah"]
+
+[resource]
+resource_name = "level_unskateable_1"
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0.35442188, 0.35442188, 0.35442188, 1)
+roughness = 0.5

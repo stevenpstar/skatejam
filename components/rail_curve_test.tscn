@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6x05mf40kqth"]
 
 [ext_resource type="Script" uid="uid://cxorov257t5mx" path="res://components/rail.gd" id="1_woocu"]
+[ext_resource type="Material" uid="uid://v0mfnwvtu630" path="res://assets/materials/env/green_rail_glow.tres" id="2_2uwtu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2uwtu"]
 size = Vector3(10.194794, 2.017273, 0.15583801)
@@ -8,20 +9,11 @@ size = Vector3(10.194794, 2.017273, 0.15583801)
 [sub_resource type="BoxMesh" id="BoxMesh_uwp4e"]
 size = Vector3(10, 2, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_woocu"]
-albedo_color = Color(0.24786553, 0.8114904, 7.70092e-07, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_woocu"]
 size = Vector3(3, 2, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uwtu"]
-albedo_color = Color(0.5421936, 0.7466436, 0.25789875, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_2uwtu"]
 size = Vector3(10, 2, 0.1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwp4e"]
-albedo_color = Color(0.21551558, 0.50422543, 0.12223499, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwp4e"]
 size = Vector3(2.1265259, 2.0689697, 12.4401245)
@@ -39,7 +31,8 @@ point_count = 4
 size = Vector3(0.25, 0.25, 0.25)
 
 [node name="Rail" type="Area3D" unique_id=257497350 node_paths=PackedStringArray("follow_object", "follow_path", "path")]
-collision_layer = 3
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("1_woocu")
 follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
 follow_path = NodePath("Path3D/PathFollow3D")
@@ -53,17 +46,17 @@ shape = SubResource("BoxShape3D_2uwtu")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=5341029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_uwp4e")
-surface_material_override/0 = SubResource("StandardMaterial3D_woocu")
+surface_material_override/0 = ExtResource("2_2uwtu")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1584840188]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 6.033, 0.5, -1.054)
 mesh = SubResource("BoxMesh_woocu")
-surface_material_override/0 = SubResource("StandardMaterial3D_2uwtu")
+surface_material_override/0 = ExtResource("2_2uwtu")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=636670026]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 7.098, 0.5, -7.09)
 mesh = SubResource("BoxMesh_2uwtu")
-surface_material_override/0 = SubResource("StandardMaterial3D_uwp4e")
+surface_material_override/0 = ExtResource("2_2uwtu")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=770120497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1133223, 0.53448486, -5.936516)

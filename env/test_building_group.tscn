@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dpd6dwhcc473g"]
+
+[ext_resource type="PackedScene" uid="uid://clddrd8v020s6" path="res://env/building_test.tscn" id="1_yeivm"]
+
+[node name="BuildingGroup" type="Node3D" unique_id=1196548927]
+
+[node name="BuildingTest" parent="." unique_id=1993396892 instance=ExtResource("1_yeivm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.22928, 0, 47.853928)
+
+[node name="BuildingTest2" parent="." unique_id=1381324452 instance=ExtResource("1_yeivm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.52988, -9.852936, 47.853928)
+
+[node name="BuildingTest3" parent="." unique_id=602715337 instance=ExtResource("1_yeivm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.53053, -17.299973, 55.57141)
+
+[node name="BuildingTest5" parent="." unique_id=628539691 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -56.779358, -20.342506, 69.47257)
+
+[node name="BuildingTest6" parent="." unique_id=516925954 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -86.69884, -27.789543, 67.14405)
+
+[node name="BuildingTest7" parent="." unique_id=998404500 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -56.779358, -20.342506, 95.89297)
+
+[node name="BuildingTest8" parent="." unique_id=2098046401 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -86.69884, -27.789543, 93.564445)
+
+[node name="BuildingTest9" parent="." unique_id=255628913 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -56.779358, 19.342373, 95.89297)
+
+[node name="BuildingTest10" parent="." unique_id=1051226776 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.9435006, 0, -0.33137083, 0, 1, 0, 0.33137083, 0, 0.9435006, -86.69884, 11.895336, 93.564445)
+
+[node name="BuildingTest4" parent="." unique_id=1143081508 instance=ExtResource("1_yeivm")]
+transform = Transform3D(0.68783534, 0, 0.7258668, 0, 1, 0, -0.7258668, 0, 0.68783534, -112.66448, -17.299973, 74.828476)

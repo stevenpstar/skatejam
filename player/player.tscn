@@ -3,16 +3,27 @@
 [ext_resource type="Script" uid="uid://dt4ff7gwccn0" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://dtijwe4qiubmp" path="res://assets/models/skater1_clothes_test1.glb" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://dlcilud4xlrp0" path="res://assets/models/skateboardtest.glb" id="2_rkbax"]
+[ext_resource type="ArrayMesh" uid="uid://v7f4eob65cxp" path="res://assets/models/skater1_scarf_obj.obj" id="3_yw30f"]
+[ext_resource type="Material" uid="uid://cflvs1kcf6dmh" path="res://assets/materials/player/Material.001.tres" id="4_qjkh3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qjkh3"]
+radius = 0.17666626
+height = 0.35333252
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
+radius = 0.13469732
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1dw6"]
-albedo_color = Color(0.04755766, 0.047557645, 0.047557645, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.35
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_oul6g"]
 radius = 0.3
 height = 1.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rkbax"]
-radius = 0.2117373
+radius = 0.07271836
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g1dw6"]
 animation = &"idle"
@@ -25,52 +36,80 @@ fadein_time = 0.1
 fadeout_time = 0.1
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g1dw6"]
-graph_offset = Vector2(-168.27277, 1.4545288)
+graph_offset = Vector2(-244.27277, -4.545471)
 nodes/output/position = Vector2(880, 140)
-nodes/idle_anim/node = SubResource("AnimationNodeAnimation_g1dw6")
-nodes/idle_anim/position = Vector2(300, 120)
-nodes/ollie_os/node = SubResource("AnimationNodeOneShot_qjkh3")
-nodes/ollie_os/position = Vector2(600, 100)
 nodes/ollie_anim/node = SubResource("AnimationNodeAnimation_yw30f")
 nodes/ollie_anim/position = Vector2(400, 340)
+nodes/ollie_os/node = SubResource("AnimationNodeOneShot_qjkh3")
+nodes/ollie_os/position = Vector2(600, 100)
+nodes/idle_anim/node = SubResource("AnimationNodeAnimation_g1dw6")
+nodes/idle_anim/position = Vector2(240, 100)
 node_connections = [&"output", 0, &"ollie_os", &"ollie_os", 0, &"idle_anim", &"ollie_os", 1, &"ollie_anim"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone")]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qjkh3"]
+animation = &"idle_stance_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6k8r"]
+animation = &"jump_lean"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_boad6"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_qjkh3")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_g6k8r")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rgyib"]
+graph_offset = Vector2(16, -30)
+nodes/output/position = Vector2(1000, 180)
+nodes/pose_blend/node = SubResource("AnimationNodeBlendSpace1D_boad6")
+nodes/pose_blend/position = Vector2(420, 160)
+node_connections = [&"output", 0, &"pose_blend"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_animation_tree", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone")]
+collision_layer = 9
+collision_mask = 9
 floor_stop_on_slope = false
 floor_constant_speed = true
-floor_max_angle = 1.4835298
+floor_block_on_wall = false
+floor_max_angle = 1.553343
 floor_snap_length = 0.4
 script = ExtResource("1_oul6g")
-turn_speed = 0.15
+turn_speed = 0.06
 max_velocity = 15.0
-max_total_velocity = 20.0
+max_total_velocity = 25.0
 acceleration = 0.1
-deceleration = 0.25
+deceleration = 0.2
 character = NodePath("CharacterModel")
 char_mesh = NodePath("CharacterModel/MeshInstance3D")
 skater_mesh = NodePath("CharacterModel/skater1_clothes_test1")
 skateboard_animation_player = NodePath("AnimationTree")
+skater_animation_tree = NodePath("SkaterAnimTree")
 skater_position = NodePath("CharacterModel/SkaterPosition")
 left_foot_pos = NodePath("CharacterModel/LeftFootTarget")
 left_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/LeftFootBone")
 right_foot_pos = NodePath("CharacterModel/RightFootTarget")
 right_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/RightFootBone")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1935020394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25318873, 0)
+shape = SubResource("CapsuleShape3D_qjkh3")
+
 [node name="CharacterModel" type="Node3D" parent="." unique_id=1781312541]
 
-[node name="skater1_clothes_test1" parent="CharacterModel" unique_id=865611817 instance=ExtResource("2_g1dw6")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.10682839, 1.0543551, -0.094145894)
+[node name="skater1_clothes_test1" parent="CharacterModel" unique_id=20444894 instance=ExtResource("2_g1dw6")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.18944955, 1.0543551, -0.094145894)
 
-[node name="Skeleton3D" parent="CharacterModel/skater1_clothes_test1/metarig" parent_id_path=PackedInt32Array(865611817, 332667668) index="0" unique_id=550850522]
-bones/1/rotation = Quaternion(-0.02505248, 2.804271e-18, 1.4000884e-17, 0.9996861)
-bones/2/rotation = Quaternion(-0.054430686, 2.3426525e-19, 5.11992e-18, 0.9985176)
-bones/5/rotation = Quaternion(-0.079260126, 0.527576, -0.15324998, 0.83180285)
-bones/8/rotation = Quaternion(-0.3427923, 0.6411855, -0.5237365, 0.443931)
-bones/9/rotation = Quaternion(0.4049599, -0.08439331, -0.11612417, 0.9029952)
-bones/10/rotation = Quaternion(0.08567952, -0.04912349, -0.030907277, 0.994631)
-bones/13/rotation = Quaternion(-0.3983153, -0.664519, 0.5108434, 0.3725568)
-bones/14/rotation = Quaternion(0.31212127, 0.0061396197, -0.055417158, 0.9484048)
-bones/15/rotation = Quaternion(0.24362805, 0.10624241, 0.056131456, 0.9623966)
+[node name="Skeleton3D" parent="CharacterModel/skater1_clothes_test1/metarig" parent_id_path=PackedInt32Array(20444894, 297618261) index="0" unique_id=1577241000]
+bones/0/position = Vector3(0, 0.9908325, -0.06092026)
+bones/1/rotation = Quaternion(-0.00016566366, 2.6658493e-18, 1.4028884e-17, 1)
+bones/2/rotation = Quaternion(0.1059864, -1.2085213e-17, -2.9128206e-17, 0.9943676)
+bones/5/rotation = Quaternion(-0.046711035, 0.53315896, -0.13252695, 0.834264)
+bones/8/rotation = Quaternion(-0.33589825, 0.61705375, -0.5422764, 0.46081838)
+bones/9/rotation = Quaternion(0.41813016, -0.08772393, -0.11655696, 0.896597)
+bones/10/rotation = Quaternion(0.08567947, -0.04912348, -0.030907268, 0.994631)
+bones/13/rotation = Quaternion(-0.3894568, -0.6387912, 0.53530115, 0.39207384)
+bones/14/rotation = Quaternion(0.45529616, 0.049556516, -0.050870135, 0.8875031)
+bones/15/rotation = Quaternion(0.24362805, 0.10624241, 0.05613144, 0.9623966)
 bones/20/rotation = Quaternion(-0.8762786, 9.9034466e-08, -4.223394e-07, 0.4818048)
 bones/25/rotation = Quaternion(-0.8762786, 1.3070856e-07, -4.1334658e-07, 0.4818048)
 bones/27/rotation = Quaternion(-0.70676774, 0.70676774, -0.021896385, -0.021895884)
@@ -105,6 +144,38 @@ settings/1/joints/1/limitation = null
 settings/1/joints/2/rotation_axis = 3
 settings/1/joints/2/limitation = null
 
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="CharacterModel/skater1_clothes_test1/metarig/Skeleton3D" index="6" unique_id=752866240]
+transform = Transform3D(0.9999999, 1.9058241e-17, -2.9080044e-17, -3.4531915e-17, 0.6418665, -0.7668163, 4.0513346e-18, 0.76681614, 0.6418665, 7.450579e-08, 1.597041, 0.17537609)
+bone_name = "spine.004"
+bone_idx = 4
+
+[node name="SoftBody3D" type="SoftBody3D" parent="CharacterModel/skater1_clothes_test1/metarig/Skeleton3D/BoneAttachment3D" unique_id=1463591347]
+transform = Transform3D(1.0000004, 0, 7.1054274e-15, 3.5527137e-15, 0.7144726, 0.69966334, -1.7763568e-15, -0.6996634, 0.71447265, -0.20778501, 0.008035421, -0.009599566)
+mesh = ExtResource("3_yw30f")
+surface_material_override/0 = ExtResource("4_qjkh3")
+collision_layer = 4
+collision_mask = 4
+parent_collision_ignore = NodePath("../../../../../..")
+simulation_precision = 4
+total_mass = 50.0
+linear_stiffness = 1.0
+damping_coefficient = 30.0
+pinned_points = [2, 0]
+attachments/0/point_index = 2
+attachments/0/spatial_attachment_path = NodePath("..")
+attachments/0/offset = Vector3(-0.11466099, -0.04098987, -0.059662662)
+attachments/1/point_index = 0
+attachments/1/spatial_attachment_path = NodePath("..")
+attachments/1/offset = Vector3(-0.11466099, 0.05706095, 0.04046353)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CharacterModel/skater1_clothes_test1/metarig/Skeleton3D/BoneAttachment3D" unique_id=1031979351]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterModel/skater1_clothes_test1/metarig/Skeleton3D/BoneAttachment3D/StaticBody3D" unique_id=1111954871]
+transform = Transform3D(1.0000031, 3.5527137e-14, 6.039613e-14, 2.1316282e-14, 1, -2.980232e-08, -3.375078e-14, -2.980232e-08, 1, -0.1221131, -0.12960112, 0.035709143)
+shape = SubResource("SphereShape3D_qjkh3")
+
 [node name="LeftFootTarget" type="Node3D" parent="CharacterModel" unique_id=338733809]
 transform = Transform3D(0.9780786, 0.20823605, 0, -0.20823605, 0.9780786, 0, 0, 0, 1, -0.13013572, 0.22139144, -0.2245639)
 
@@ -112,9 +183,20 @@ transform = Transform3D(0.9780786, 0.20823605, 0, -0.20823605, 0.9780786, 0, 0, 
 transform = Transform3D(0.9780786, 0.20823605, 0, -0.20823605, 0.9780786, 0, 0, 0, 1, -0.084091574, 0.21247023, 0.3666252)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="CharacterModel" unique_id=1598932290]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0765886, 1.8505294)
-light_color = Color(0.7081232, 0.5659094, 0.4484858, 1)
-light_energy = 0.667
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12110567, 1.6992917, 0.63202167)
+light_color = Color(0.92714953, 0.79574555, 0.6096173, 1)
+light_energy = 0.343
+light_specular = 0.0
+shadow_enabled = true
+omni_range = 1.534228
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="CharacterModel" unique_id=392705398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12110567, 1.6992917, -0.61559486)
+light_color = Color(0.64921415, 0.84677136, 0.98290545, 1)
+light_energy = 0.0
+light_specular = 0.0
+shadow_enabled = true
+omni_range = 1.534228
 
 [node name="FrontWheelRayOrigin" type="Node3D" parent="CharacterModel" unique_id=379892356]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20699841, -0.4008075)
@@ -154,7 +236,7 @@ mesh = SubResource("CapsuleMesh_oul6g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13742365, 1.054, 0)
 
 [node name="FrontCollisionShape" type="CollisionShape3D" parent="." unique_id=638811708]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21374834, -0.0036887527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1534858, -0.0036887527)
 shape = SubResource("SphereShape3D_rkbax")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=80214154]
@@ -164,6 +246,12 @@ anim_player = NodePath("../CharacterModel/skateboardtest/AnimationPlayer")
 parameters/ollie_os/active = false
 parameters/ollie_os/internal_active = false
 parameters/ollie_os/request = 0
+
+[node name="SkaterAnimTree" type="AnimationTree" parent="." unique_id=989100887]
+root_node = NodePath("../CharacterModel/skater1_clothes_test1")
+tree_root = SubResource("AnimationNodeBlendTree_rgyib")
+anim_player = NodePath("../CharacterModel/skater1_clothes_test1/AnimationPlayer")
+parameters/pose_blend/blend_position = 1.0
 
 [editable path="CharacterModel/skater1_clothes_test1"]
 [editable path="CharacterModel/skateboardtest"]

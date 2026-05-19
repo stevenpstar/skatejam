@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dhhtnt4bvqd65"]
+
+[ext_resource type="PackedScene" uid="uid://bq7qc8qm7q6yi" path="res://assets/models/lightpost.glb" id="1_j7xi3"]
+
+[node name="LightPost" type="Node3D" unique_id=466949529]
+
+[node name="lightpost" parent="." unique_id=1919668233 instance=ExtResource("1_j7xi3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
