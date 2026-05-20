@@ -3,6 +3,6 @@
 [resource]
 resource_name = "hat"
 cull_mode = 2
-specular_mode = 2
+specular_mode = 1
 albedo_color = Color(0.94117427, 0.67843175, 0.015687713, 1)
 roughness = 0.5

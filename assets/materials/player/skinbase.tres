@@ -3,6 +3,6 @@
 [resource]
 resource_name = "skinbase"
 cull_mode = 2
-specular_mode = 2
+specular_mode = 1
 albedo_color = Color(0.90642655, 0.6704009, 0.5356954, 1)
 roughness = 0.5

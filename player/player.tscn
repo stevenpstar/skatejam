@@ -7,8 +7,8 @@
 [ext_resource type="Material" uid="uid://cflvs1kcf6dmh" path="res://assets/materials/player/Material.001.tres" id="4_qjkh3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qjkh3"]
-radius = 0.17666626
-height = 0.35333252
+radius = 0.35107422
+height = 1.502372
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.13469732
@@ -65,18 +65,17 @@ nodes/pose_blend/node = SubResource("AnimationNodeBlendSpace1D_boad6")
 nodes/pose_blend/position = Vector2(420, 160)
 node_connections = [&"output", 0, &"pose_blend"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_animation_tree", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone")]
+[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_animation_tree", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone", "coyote_timer")]
 collision_layer = 9
 collision_mask = 9
-floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false
-floor_max_angle = 1.553343
+floor_max_angle = 1.4835298
 floor_snap_length = 0.4
 script = ExtResource("1_oul6g")
 turn_speed = 0.06
-max_velocity = 15.0
-max_total_velocity = 25.0
+max_velocity = 14.0
+max_total_velocity = 30.0
 acceleration = 0.1
 deceleration = 0.2
 character = NodePath("CharacterModel")
@@ -89,9 +88,10 @@ left_foot_pos = NodePath("CharacterModel/LeftFootTarget")
 left_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/LeftFootBone")
 right_foot_pos = NodePath("CharacterModel/RightFootTarget")
 right_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/RightFootBone")
+coyote_timer = NodePath("CoyoteTimer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1935020394]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25318873, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8436425, 0)
 shape = SubResource("CapsuleShape3D_qjkh3")
 
 [node name="CharacterModel" type="Node3D" parent="." unique_id=1781312541]
@@ -159,7 +159,7 @@ parent_collision_ignore = NodePath("../../../../../..")
 simulation_precision = 4
 total_mass = 50.0
 linear_stiffness = 1.0
-damping_coefficient = 30.0
+damping_coefficient = 20.0
 pinned_points = [2, 0]
 attachments/0/point_index = 2
 attachments/0/spatial_attachment_path = NodePath("..")
@@ -252,6 +252,11 @@ root_node = NodePath("../CharacterModel/skater1_clothes_test1")
 tree_root = SubResource("AnimationNodeBlendTree_rgyib")
 anim_player = NodePath("../CharacterModel/skater1_clothes_test1/AnimationPlayer")
 parameters/pose_blend/blend_position = 1.0
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1072539594]
+wait_time = 0.5
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 
 [editable path="CharacterModel/skater1_clothes_test1"]
 [editable path="CharacterModel/skateboardtest"]

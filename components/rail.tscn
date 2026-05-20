@@ -46,6 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.2480612, 0)
 curve = SubResource("Curve3D_e7anx")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=660337678]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 loop = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D" unique_id=1437335367]

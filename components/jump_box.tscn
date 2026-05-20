@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ddcqhpadu8t64"]
+
+[ext_resource type="Script" uid="uid://b33w5vag7x540" path="res://components/jump_box.gd" id="1_7423y"]
+
+[node name="JumpBox" type="Area3D" unique_id=1142157769]
+script = ExtResource("1_7423y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

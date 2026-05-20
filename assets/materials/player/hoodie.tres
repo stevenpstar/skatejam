@@ -3,6 +3,6 @@
 [resource]
 resource_name = "hoodie"
 cull_mode = 2
-specular_mode = 2
+specular_mode = 1
 albedo_color = Color(0.634034, 0.68777686, 0.69619125, 1)
 roughness = 0.5

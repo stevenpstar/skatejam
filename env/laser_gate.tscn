@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bepcsy2slohmr"]
+
+[ext_resource type="Script" uid="uid://btq6whpo4ggdt" path="res://env/laser_gate.gd" id="1_1qxp4"]
+[ext_resource type="Material" uid="uid://dr065eokt3cqs" path="res://assets/materials/env/building_grey_1.tres" id="2_2lwfs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dykx6"]
+transparency = 1
+specular_mode = 2
+albedo_color = Color(1.3297741, 0.18212382, 0, 0.408)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yug6p"]
+size = Vector3(9.74707, 4.0058594, 1)
+
+[node name="LaserGate" type="Node3D" unique_id=2073290637]
+script = ExtResource("1_1qxp4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1396860588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+size = Vector3(1, 4, 1)
+material = ExtResource("2_2lwfs")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=389907821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.804005, 1.5, 0)
+size = Vector3(1, 4, 1)
+material = ExtResource("2_2lwfs")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1436992872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4846687, 1.5, -0.08959961)
+size = Vector3(9.638672, 4, 0.17626953)
+material = SubResource("StandardMaterial3D_dykx6")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1673302504]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=59616090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.373535, 1.5029297, 0)
+shape = SubResource("BoxShape3D_yug6p")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_player_entered"]

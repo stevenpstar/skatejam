@@ -27,6 +27,13 @@ var skater_default_position: Vector3 = Vector3(-0.137, 1.054, 0.0)
 @onready var front_col_shape: CollisionShape3D = $FrontCollisionShape
 @onready var back_col_shape: CollisionShape3D = $BackCollisionShape
 
+@export var UI_jumpbar: ProgressBar
+@export var UI_stopwatch: Label
+var elapsed_time: float = 0.0
+@export var player_start: Node3D
+@export var coyote_timer: Timer
+var can_coyote_jump: bool = false
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 1.1
 
@@ -76,9 +83,12 @@ func stop_grinding():
 	grinding_rail = null
 
 func jump(delta: float) -> void:
+	#if self.velocity.y < 0.0:
+	#	self.velocity.y = 0.0
 	charging_jump = false
 	has_jumped = true
 	jump_velocity = jump_strength
+	#self.velocity.y = 0.0
 	if skateboard_animation_player:
 		skateboard_animation_player.set("parameters/ollie_os/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	stop_grinding()
@@ -86,8 +96,7 @@ func jump(delta: float) -> void:
 
 func handle_jumping(delta: float) -> void:
 	if not is_on_floor():
-		if !has_jumped and !just_fell and !on_ramp:
-			print("just fell")
+		if !has_jumped and !just_fell and !on_ramp and !charging_jump:
 			jump_velocity = 0.0
 			self.velocity.y = 0.0
 			just_fell = true
@@ -106,12 +115,15 @@ func handle_jumping(delta: float) -> void:
 			
 		if has_jumped:
 			has_jumped = false
-	if Input.is_action_pressed("jump") and (is_on_floor() or grinding) and !has_jumped:
+	if Input.is_action_pressed("jump") and (is_on_floor() or grinding or can_coyote_jump) and !has_jumped:
 		jump_strength += 1.1 * delta
 		if jump_strength > max_jump_strength:
 			jump_strength = max_jump_strength
 		charging_jump = true
-	if Input.is_action_just_released("jump") and (is_on_floor() or grinding) and !has_jumped:
+	if Input.is_action_just_released("jump") and (is_on_floor() or grinding or can_coyote_jump) and !has_jumped:
+		print("just released jump with: ")
+		print("jump strength: ", jump_strength)
+		print("y vel is: ", self.velocity.y)
 		jump(delta)
 		
 func handle_direction(delta: float) -> void:
@@ -142,7 +154,6 @@ func handle_direction(delta: float) -> void:
 			current_velocity = 0.0
 	#current_velocity += bonus_velocity
 		if is_on_floor() and current_velocity > 0.0:
-			print("decelerating")
 			current_velocity -= deceleration
 	if current_velocity > max_total_velocity:
 		current_velocity = max_total_velocity
@@ -163,9 +174,6 @@ func handle_rotation(delta: float) -> void:
 			on_ramp = self.up_direction != Vector3.UP
 			if -character.transform.basis.z.y < 0.0: # if we are going down a ramp, increase current velocity
 				current_velocity += 5.0 * delta
-				print("SPEEEEDIN")
-				#if current_velocity > max_total_velocity:
-				#	current_velocity = max_total_velocity
 			var b_rotation := Quaternion(character.transform.basis.y, desired_rot)
 			character.transform.basis = lerp(character.transform.basis, Basis(b_rotation * character.transform.basis.get_rotation_quaternion()), 0.25)
 		else:
@@ -176,19 +184,45 @@ func handle_rotation(delta: float) -> void:
 
 		self.velocity.x = -character.transform.basis.z.x * current_velocity
 		self.velocity.z = -character.transform.basis.z.z * current_velocity
-		if is_on_floor() and !grinding:
+		if is_on_floor() and !grinding and on_ramp:
 			var down_force = -self.up_direction * 9.8
 			self.velocity += down_force * delta
 		if not is_on_floor() or has_jumped:
-			self.velocity.y += jump_velocity
+			self.velocity += jump_velocity * self.up_direction
 
+func _ready() -> void:
+	coyote_timer.stop()
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("reset"):
+		reset()
+	elapsed_time += delta
+	UI_stopwatch.text = str(elapsed_time).pad_decimals(2)
 		
+func reset():
+	jump_velocity = 0.0
+	charging_jump = false
+	on_ramp = false
+	in_air = false
+	current_velocity = 0.0
+	stop_grinding()
+	self.global_position = player_start.global_position
+	elapsed_time = 0.0
+	coyote_timer.stop()
+	
 func _physics_process(delta: float) -> void:
+	if UI_jumpbar:
+		UI_jumpbar.value = jump_strength
 	if char_mesh:
 		if is_on_floor() or grinding:
+			can_coyote_jump = true
+			coyote_timer.stop()
 			char_mesh.position.y = lerpf(char_mesh.position.y, 1.07, 0.4)
 		else:
 			char_mesh.position.y = lerpf(char_mesh.position.y, 1.27, 0.4)
+			if coyote_timer.is_stopped():
+				coyote_timer.wait_time = 1.0
+				coyote_timer.start()
 	if is_on_wall():
 		#reset velocities
 		current_velocity = 0.0
@@ -209,9 +243,8 @@ func _physics_process(delta: float) -> void:
 		handle_rotation(delta)
 	#print("final velocity: ", self.velocity)
 	if grinding and grinding_rail:
-		
 		self.velocity = (-grinding_rail.follow_object.global_transform.basis.z * grinding_rail.dir) * current_velocity
-		print("grind vel:" , self.velocity)
+
 	move_and_slide()
 	if grinding and grinding_rail:
 			grinding_rail.set_progress(self.global_position)
@@ -250,7 +283,7 @@ func rayRampPosition():
 	var space_state = get_world_3d().direct_space_state
 	var origin = front_ramp_origin.global_position
 	#var end = origin + (-Vector3.UP * 5.0)
-	var end = origin + (-self.up_direction * 4.0)
+	var end = origin + (-self.up_direction * 10.0)
 	#look_at_visual.global_position = end
 	var query = PhysicsRayQueryParameters3D.create(origin, end, 2, [self])
 	query.collide_with_areas = true
@@ -270,4 +303,8 @@ func rayRampPosition():
 		if result:
 			desired_rot = result.normal
 			self.up_direction = result.normal
-		
+
+
+func _on_coyote_timer_timeout() -> void:
+	print("can't coyote jump")
+	can_coyote_jump = false
