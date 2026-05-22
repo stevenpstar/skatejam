@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bmr5c7oxfetkt" path="res://assets/models/skateramptest2.glb" id="7_4n8tn"]
 [ext_resource type="PackedScene" uid="uid://c6x05mf40kqth" path="res://components/rail_curve_test.tscn" id="8_ly3hx"]
 [ext_resource type="PackedScene" uid="uid://x1km4v8fd06n" path="res://components/rail.tscn" id="8_wndkh"]
+[ext_resource type="Material" uid="uid://v0mfnwvtu630" path="res://assets/materials/env/green_rail_glow.tres" id="11_wkb0e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_paa45"]
 panorama = ExtResource("1_wkb0e")
@@ -45,21 +46,6 @@ albedo_color = Color(0.76240367, 0.76240367, 0.76240367, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7r7j"]
 albedo_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4n8tn"]
-size = Vector3(14.036499, 0.6542728, 0.9216919)
-
-[sub_resource type="Curve3D" id="Curve3D_ly3hx"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -7, 0.8, 0, 0, 0, 0, 0, 0, 0, 7, 0.8, 0),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_4n8tn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6mel"]
-albedo_color = Color(0.29954746, 0.29954746, 0.29954743, 1)
-
 [sub_resource type="SphereMesh" id="SphereMesh_w7r7j"]
 radius = 0.1
 height = 0.2
@@ -79,6 +65,57 @@ data = PackedVector3Array(-1, 0.6125, -0.9637, 1, 0.6735, -1, 1, 0.6125, -0.9637
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4n8tn"]
 data = PackedVector3Array(-3, 2.8244, -2.891, 3, 3.1011999, -3, 3, 2.8244, -2.891, -3, 2.8244, -2.891, -3, 3.1011999, -3, 3, 3.1011999, -3, -3, -1.1962999, 3, 3, -1.1954, 2.8909, 3, -1.1962999, 3, -3, -1.1962999, 3, -3, -1.1954, 2.8909, 3, -1.1954, 2.8909, -3, -1.1954, 2.8909, 3, -1.1925, 2.7817, 3, -1.1954, 2.8909, -3, -1.1954, 2.8909, -3, -1.1925, 2.7817, 3, -1.1925, 2.7817, -3, -1.1925, 2.7817, 3, -1.1876999, 2.6727, 3, -1.1925, 2.7817, -3, -1.1925, 2.7817, -3, -1.1876999, 2.6727, 3, -1.1876999, 2.6727, -3, -1.1876999, 2.6727, 3, -1.1809, 2.5635998, 3, -1.1876999, 2.6727, -3, -1.1876999, 2.6727, -3, -1.1809, 2.5635998, 3, -1.1809, 2.5635998, -3, -1.1809, 2.5635998, 3, -1.1722, 2.4545, 3, -1.1809, 2.5635998, -3, -1.1809, 2.5635998, -3, -1.1722, 2.4545, 3, -1.1722, 2.4545, -3, -1.1722, 2.4545, 3, -1.1615, 2.3453999, 3, -1.1722, 2.4545, -3, -1.1722, 2.4545, -3, -1.1615, 2.3453999, 3, -1.1615, 2.3453999, -3, -1.1615, 2.3453999, 3, -1.1488, 2.2363, 3, -1.1615, 2.3453999, -3, -1.1615, 2.3453999, -3, -1.1488, 2.2363, 3, -1.1488, 2.2363, -3, -1.1488, 2.2363, 3, -1.1342, 2.1272, 3, -1.1488, 2.2363, -3, -1.1488, 2.2363, -3, -1.1342, 2.1272, 3, -1.1342, 2.1272, -3, -1.1342, 2.1272, 3, -1.1176, 2.0182, 3, -1.1342, 2.1272, -3, -1.1342, 2.1272, -3, -1.1176, 2.0182, 3, -1.1176, 2.0182, -3, -1.1176, 2.0182, 3, -1.0991, 1.9089999, 3, -1.1176, 2.0182, -3, -1.1176, 2.0182, -3, -1.0991, 1.9089999, 3, -1.0991, 1.9089999, -3, -1.0991, 1.9089999, 3, -1.0784, 1.7998999, 3, -1.0991, 1.9089999, -3, -1.0991, 1.9089999, -3, -1.0784, 1.8, 3, -1.0784, 1.7998999, -3, -1.0784, 1.8, 3, -1.0558, 1.6909, 3, -1.0784, 1.7998999, -3, -1.0784, 1.8, -3, -1.0558, 1.6909, 3, -1.0558, 1.6909, -3, -1.0558, 1.6909, 3, -1.0310999, 1.5817, 3, -1.0558, 1.6909, -3, -1.0558, 1.6909, -3, -1.0310999, 1.5817, 3, -1.0310999, 1.5817, -3, -1.0310999, 1.5817, 3, -1.0042, 1.4727, 3, -1.0310999, 1.5817, -3, -1.0310999, 1.5817, -3, -1.0043, 1.4727, 3, -1.0042, 1.4727, -3, -1.0043, 1.4727, 3, -0.9754, 1.3636, 3, -1.0042, 1.4727, -3, -1.0043, 1.4727, -3, -0.9754, 1.3636, 3, -0.9754, 1.3636, -3, -0.9754, 1.3636, 3, -0.9443, 1.2544999, 3, -0.9754, 1.3636, -3, -0.9754, 1.3636, -3, -0.9443, 1.2544999, 3, -0.9443, 1.2544999, -3, -0.9443, 1.2544999, 3, -0.9111, 1.1453999, 3, -0.9443, 1.2544999, -3, -0.9443, 1.2544999, -3, -0.9111, 1.1453999, 3, -0.9111, 1.1453999, -3, -0.9111, 1.1453999, 3, -0.8757, 1.0363, 3, -0.9111, 1.1453999, -3, -0.9111, 1.1453999, -3, -0.8757, 1.0363, 3, -0.8757, 1.0363, -3, -0.8757, 1.0363, 3, -0.83809996, 0.92719996, 3, -0.8757, 1.0363, -3, -0.8757, 1.0363, -3, -0.83809996, 0.92719996, 3, -0.83809996, 0.92719996, -3, -0.83809996, 0.92719996, 3, -0.7981, 0.8182, 3, -0.83809996, 0.92719996, -3, -0.83809996, 0.92719996, -3, -0.7981, 0.8182, 3, -0.7981, 0.8182, -3, -0.7981, 0.8182, 3, -0.75589997, 0.709, 3, -0.7981, 0.8182, -3, -0.7981, 0.8182, -3, -0.75589997, 0.709, 3, -0.75589997, 0.709, -3, -0.75589997, 0.709, 3, -0.71129996, 0.5999, 3, -0.75589997, 0.709, -3, -0.75589997, 0.709, -3, -0.71129996, 0.59999996, 3, -0.71129996, 0.5999, -3, -0.71129996, 0.59999996, 3, -0.66429996, 0.49089998, 3, -0.71129996, 0.5999, -3, -0.71129996, 0.59999996, -3, -0.66429996, 0.49089998, 3, -0.66429996, 0.49089998, -3, -0.66429996, 0.49089998, 3, -0.6148, 0.38169998, 3, -0.66429996, 0.49089998, -3, -0.66429996, 0.49089998, -3, -0.6148, 0.38169998, 3, -0.6148, 0.38169998, -3, -0.6148, 0.38169998, 3, -0.5627, 0.27269998, 3, -0.6148, 0.38169998, -3, -0.6148, 0.38169998, -3, -0.5627, 0.27269998, 3, -0.5627, 0.27269998, -3, -0.5627, 0.27269998, 3, -0.5081, 0.1636, 3, -0.5627, 0.27269998, -3, -0.5627, 0.27269998, -3, -0.5081, 0.1636, 3, -0.5081, 0.1636, -3, -0.5081, 0.1636, 3, -0.4508, 0.0545, 3, -0.5081, 0.1636, -3, -0.5081, 0.1636, -3, -0.4508, 0.0545, 3, -0.4508, 0.0545, -3, -0.4508, 0.0545, 3, -0.39069998, -0.0546, 3, -0.4508, 0.0545, -3, -0.4508, 0.0545, -3, -0.39069998, -0.0546, 3, -0.39069998, -0.0546, -3, -0.39069998, -0.0546, 3, -0.3278, -0.1637, 3, -0.39069998, -0.0546, -3, -0.39069998, -0.0546, -3, -0.3278, -0.1637, 3, -0.3278, -0.1637, -3, -0.3278, -0.1637, 3, -0.262, -0.2728, 3, -0.3278, -0.1637, -3, -0.3278, -0.1637, -3, -0.262, -0.2728, 3, -0.262, -0.2728, -3, -0.262, -0.2728, 3, -0.19309999, -0.3818, 3, -0.262, -0.2728, -3, -0.262, -0.2728, -3, -0.19309999, -0.3818, 3, -0.19309999, -0.3818, -3, -0.19309999, -0.3818, 3, -0.12109999, -0.491, 3, -0.19309999, -0.3818, -3, -0.19309999, -0.3818, -3, -0.12109999, -0.491, 3, -0.12109999, -0.491, -3, -0.12109999, -0.491, 3, -0.0458, -0.6001, 3, -0.12109999, -0.491, -3, -0.12109999, -0.491, -3, -0.0458, -0.59999996, 3, -0.0458, -0.6001, -3, -0.0458, -0.59999996, 3, 0.0328, -0.7091, 3, -0.0458, -0.6001, -3, -0.0458, -0.59999996, -3, 0.0328, -0.7091, 3, 0.0328, -0.7091, -3, 0.0328, -0.7091, 3, 0.114999995, -0.8183, 3, 0.0328, -0.7091, -3, 0.0328, -0.7091, -3, 0.114999995, -0.8183, 3, 0.114999995, -0.8183, -3, 0.114999995, -0.8183, 3, 0.20089999, -0.9273, 3, 0.114999995, -0.8183, -3, 0.114999995, -0.8183, -3, 0.20089999, -0.9273, 3, 0.20089999, -0.9273, -3, 0.20089999, -0.9273, 3, 0.2908, -1.0364, 3, 0.20089999, -0.9273, -3, 0.20089999, -0.9273, -3, 0.2908, -1.0364, 3, 0.2908, -1.0364, -3, 0.2908, -1.0364, 3, 0.3847, -1.1455, 3, 0.2908, -1.0364, -3, 0.2908, -1.0364, -3, 0.3847, -1.1455, 3, 0.3847, -1.1455, -3, 0.3847, -1.1455, 3, 0.4829, -1.2545999, 3, 0.3847, -1.1455, -3, 0.3847, -1.1455, -3, 0.4829, -1.2545999, 3, 0.4829, -1.2545999, -3, 0.4829, -1.2545999, 3, 0.5857, -1.3636999, 3, 0.4829, -1.2545999, -3, 0.4829, -1.2545999, -3, 0.5857, -1.3636999, 3, 0.5857, -1.3636999, -3, 0.5857, -1.3636999, 3, 0.69339997, -1.4728, 3, 0.5857, -1.3636999, -3, 0.5857, -1.3636999, -3, 0.69339997, -1.4728, 3, 0.69339997, -1.4728, -3, 0.69339997, -1.4728, 3, 0.8063, -1.5818, 3, 0.69339997, -1.4728, -3, 0.69339997, -1.4728, -3, 0.8063, -1.5818, 3, 0.8063, -1.5818, -3, 0.8063, -1.5818, 3, 0.9248, -1.691, 3, 0.8063, -1.5818, -3, 0.8063, -1.5818, -3, 0.9248, -1.691, 3, 0.9248, -1.691, -3, 0.9248, -1.691, 3, 1.0493, -1.8001, 3, 0.9248, -1.691, -3, 0.9248, -1.691, -3, 1.0493, -1.8, 3, 1.0493, -1.8001, -3, 1.0493, -1.8, 3, 1.1804, -1.9090999, 3, 1.0493, -1.8001, -3, 1.0493, -1.8, -3, 1.1804, -1.9090999, 3, 1.1804, -1.9090999, -3, 1.1804, -1.9090999, 3, 1.3187, -2.0183, 3, 1.1804, -1.9090999, -3, 1.1804, -1.9090999, -3, 1.3187, -2.0183, 3, 1.3187, -2.0183, -3, 1.3187, -2.0183, 3, 1.4649, -2.1273, 3, 1.3187, -2.0183, -3, 1.3187, -2.0183, -3, 1.4649, -2.1273, 3, 1.4649, -2.1273, -3, 1.4649, -2.1273, 3, 1.6199, -2.2364, 3, 1.4649, -2.1273, -3, 1.4649, -2.1273, -3, 1.6199, -2.2364, 3, 1.6199, -2.2364, -3, 1.6199, -2.2364, 3, 1.7847999, -2.3455, 3, 1.6199, -2.2364, -3, 1.6199, -2.2364, -3, 1.7847999, -2.3455, 3, 1.7847999, -2.3455, -3, 1.7847999, -2.3455, 3, 1.961, -2.4545999, 3, 1.7847999, -2.3455, -3, 1.7847999, -2.3455, -3, 1.961, -2.4545999, 3, 1.961, -2.4545999, -3, 1.961, -2.4545999, 3, 2.1502, -2.5637, 3, 1.961, -2.4545999, -3, 1.961, -2.4545999, -3, 2.1502, -2.5637, 3, 2.1502, -2.5637, -3, 2.1502, -2.5637, 3, 2.3548, -2.6727998, 3, 2.1502, -2.5637, -3, 2.1502, -2.5637, -3, 2.3548, -2.6727998, 3, 2.3548, -2.6727998, -3, 2.3548, -2.6727998, 3, 2.5779998, -2.7818, 3, 2.3548, -2.6727998, -3, 2.3548, -2.6727998, -3, 2.5779998, -2.7818, 3, 2.5779998, -2.7818, -3, 2.5779998, -2.7818, 3, 2.8244, -2.891, 3, 2.5779998, -2.7818, -3, 2.5779998, -2.7818, -3, 2.8244, -2.891, 3, 2.8244, -2.891)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_paa45"]
+size = Vector3(74.36168, 1.2559814, 7.155884)
+
+[sub_resource type="BoxMesh" id="BoxMesh_axl34"]
+size = Vector3(75, 1, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_wkb0e"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -37.42003, 2.584, 0, 0, 0, 0, 0, 0, 0, 36.828285, 2.5838041, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_wkb0e"]
+
+[sub_resource type="Animation" id="Animation_4n8tn"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -100.2388, 1.3578491, -7.4106226)
+
+[sub_resource type="Animation" id="Animation_wkb0e"]
+resource_name = "train_move_1"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -100.2388, 1.3578491, -7.4106226, 8, 1, 102.29448, 1.3578491, -7.4106226)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_paa45"]
+_data = {
+&"RESET": SubResource("Animation_4n8tn"),
+&"train_move_1": SubResource("Animation_wkb0e")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4n8tn"]
+animation = &"train_move_1"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4n8tn"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_4n8tn")
+nodes/Animation/position = Vector2(0, 140)
+node_connections = [&"output", 0, &"Animation"]
 
 [node name="TestLevel" type="Node3D" unique_id=6748767]
 
@@ -108,10 +145,10 @@ player = NodePath("../Player")
 [node name="LevelTerrain" type="Node3D" parent="." unique_id=265925241]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="LevelTerrain" unique_id=1662710581]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.77803, -0.5, 1.6038208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.76667, -0.5, 31.311111)
 use_collision = true
 collision_layer = 3
-size = Vector3(99.44974, 1, 62.590454)
+size = Vector3(221.42702, 1, 173.54935)
 material = SubResource("StandardMaterial3D_4n8tn")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="LevelTerrain" unique_id=1243714320]
@@ -129,10 +166,10 @@ size = Vector3(31.475437, 6.1295776, 11.929642)
 material = SubResource("StandardMaterial3D_4n8tn")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="LevelTerrain" unique_id=1437263076]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.735138, -0.5, 1.4051514)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.925003, -0.5, -11.0043335)
 use_collision = true
 collision_layer = 3
-size = Vector3(43.482483, 1, 62.193115)
+size = Vector3(71.86221, 1, 87.012085)
 material = SubResource("StandardMaterial3D_wndkh")
 
 [node name="LevelProps" type="Node3D" parent="." unique_id=569885599]
@@ -144,40 +181,15 @@ collision_layer = 3
 size = Vector3(2, 2, 1)
 material = SubResource("StandardMaterial3D_w7r7j")
 
-[node name="Rail" type="Area3D" parent="LevelProps" unique_id=2109393820 node_paths=PackedStringArray("p", "follow_object", "follow_path", "path")]
+[node name="Rail" type="Area3D" parent="LevelProps" unique_id=2109393820 node_paths=PackedStringArray("p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.210022, 1.9103937, -12.654769)
 collision_layer = 3
 script = ExtResource("4_ly3hx")
 p = NodePath("../../Player")
-follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
-follow_path = NodePath("Path3D/PathFollow3D")
-path = NodePath("Path3D")
 metadata/_custom_type_script = "uid://cxorov257t5mx"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelProps/Rail" unique_id=1887872842]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025024414, 0.54808474, -0.039154053)
-shape = SubResource("BoxShape3D_4n8tn")
-
-[node name="Path3D" type="Path3D" parent="LevelProps/Rail" unique_id=1609915301]
-curve = SubResource("Curve3D_ly3hx")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="LevelProps/Rail/Path3D" unique_id=2146223821]
-transform = Transform3D(-4.371139e-08, 0, -0.9999999, 0, 0.9999999, 0, 1, 0, -4.3711385e-08, -7, 0.8, 0)
-loop = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelProps/Rail/Path3D/PathFollow3D" unique_id=1184912474]
-visible = false
-mesh = SubResource("BoxMesh_4n8tn")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="LevelProps" unique_id=33781977]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.210022, 0.8548889, -16.647621)
-use_collision = true
-collision_layer = 3
-size = Vector3(14.038208, 2.7097778, 8.010742)
-material = SubResource("StandardMaterial3D_o6mel")
-
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="LevelProps" unique_id=1451442735]
-transform = Transform3D(12.744734, 0, 0, 0, 2.0147738, 0, 0, 0, 11.490171, 16.353664, 0, -11.089558)
+transform = Transform3D(-10.637834, 0, -6.3279657, 0, 2.014774, 0, 7.0188875, 0, -9.590669, -49.522827, 0, 4.8505707)
 use_collision = true
 collision_layer = 3
 polygon = PackedVector2Array(0, 0, 0, 1, 1, 0)
@@ -218,7 +230,7 @@ shape = SubResource("ConcavePolygonShape3D_4n8tn")
 [node name="skateramptest2" parent="StaticBody3D2" unique_id=1931537879 instance=ExtResource("7_4n8tn")]
 
 [node name="CameraLookAt" type="Node3D" parent="." unique_id=284350124 node_paths=PackedStringArray("target_position", "camera_spring")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.71582, 1.2, 0)
 script = ExtResource("3_gmgay")
 target_position = NodePath("../Player")
 camera_spring = NodePath("SpringArm3D")
@@ -232,12 +244,13 @@ spring_length = 3.0
 [node name="CameraTargetPos" type="Node3D" parent="CameraLookAt/SpringArm3D" unique_id=1485857300]
 
 [node name="Player" parent="." unique_id=1559029232 node_paths=PackedStringArray("camera", "camera_parent", "rotation_target") instance=ExtResource("1_46lwt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.76345, 0, 23.987564)
 camera = NodePath("../PlayerCamera")
 camera_parent = NodePath("../CameraLookAt")
 rotation_target = NodePath("../PlayerTurnTarget")
 
 [node name="Rail2" parent="." unique_id=257497350 node_paths=PackedStringArray("p") instance=ExtResource("8_ly3hx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.304022, 0, -2.9287758)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.304022, 0, -29.592552)
 p = NodePath("../Player")
 
 [node name="Rail" parent="." unique_id=858951306 node_paths=PackedStringArray("p") instance=ExtResource("8_wndkh")]
@@ -258,7 +271,55 @@ light_bake_mode = 1
 shadow_enabled = true
 omni_range = 14.60858
 
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1531462701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6709595, 0, -7.974343)
+use_collision = true
+size = Vector3(136.9226, 1, 8.238281)
+
+[node name="Train2" type="CSGBox3D" parent="." unique_id=69215592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100.2388, 1.3578491, -7.4106226)
+use_collision = true
+size = Vector3(73.8667, 3.7156982, 6.240967)
+
+[node name="Rail" type="Area3D" parent="Train2" unique_id=2028208960 node_paths=PackedStringArray("p", "follow_object", "follow_path", "path")]
+script = ExtResource("4_ly3hx")
+p = NodePath("../../Player")
+follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
+follow_path = NodePath("Path3D/PathFollow3D")
+path = NodePath("Path3D")
+metadata/_custom_type_script = "uid://cxorov257t5mx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Train2/Rail" unique_id=467578660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10967255, 2.0809937, 0.08428955)
+shape = SubResource("BoxShape3D_paa45")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Train2/Rail/CollisionShape3D" unique_id=615718731]
+mesh = SubResource("BoxMesh_axl34")
+surface_material_override/0 = ExtResource("11_wkb0e")
+
+[node name="Path3D" type="Path3D" parent="Train2/Rail" unique_id=911329970]
+curve = SubResource("Curve3D_wkb0e")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Train2/Rail/Path3D" unique_id=920056229]
+transform = Transform3D(-4.371139e-08, 2.639519e-06, -0.99999875, 0, 0.99999875, 2.639519e-06, 1, 1.1537704e-13, -4.3711335e-08, -37.42003, 2.584, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Train2/Rail/Path3D/PathFollow3D" unique_id=360240098]
+visible = false
+mesh = SubResource("SphereMesh_wkb0e")
+
+[node name="Animationplayers" type="Node3D" parent="." unique_id=261984778]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animationplayers" unique_id=981223928]
+root_node = NodePath("../../Train2")
+libraries/ = SubResource("AnimationLibrary_paa45")
+
+[node name="AnimationTree" type="AnimationTree" parent="Animationplayers" unique_id=555357216]
+root_node = NodePath("../../Train2")
+tree_root = SubResource("AnimationNodeBlendTree_4n8tn")
+anim_player = NodePath("../AnimationPlayer")
+
 [connection signal="body_entered" from="LevelProps/Rail" to="LevelProps/Rail" method="_on_body_entered"]
+[connection signal="body_entered" from="Train2/Rail" to="Train2/Rail" method="_on_body_entered"]
 
 [editable path="StaticBody3D/skateramptest3_shallower"]
 [editable path="StaticBody3D2/skateramptest2"]

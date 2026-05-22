@@ -5,9 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dlcilud4xlrp0" path="res://assets/models/skateboardtest.glb" id="2_rkbax"]
 [ext_resource type="ArrayMesh" uid="uid://v7f4eob65cxp" path="res://assets/models/skater1_scarf_obj.obj" id="3_yw30f"]
 [ext_resource type="Material" uid="uid://cflvs1kcf6dmh" path="res://assets/materials/player/Material.001.tres" id="4_qjkh3"]
+[ext_resource type="AudioStream" uid="uid://1engu8q7tsmv" path="res://assets/sfx/skate_roll.ogg" id="6_g6k8r"]
+[ext_resource type="AudioStream" uid="uid://dqc6oveet030a" path="res://assets/sfx/skate_ollie.ogg" id="7_boad6"]
+[ext_resource type="AudioStream" uid="uid://b0riu8tjy262y" path="res://assets/sfx/skate_land.ogg" id="8_rgyib"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qjkh3"]
-radius = 0.35107422
+radius = 0.36865234
 height = 1.502372
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
@@ -65,17 +68,41 @@ nodes/pose_blend/node = SubResource("AnimationNodeBlendSpace1D_boad6")
 nodes/pose_blend/position = Vector2(420, 160)
 node_connections = [&"output", 0, &"pose_blend"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_animation_tree", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone", "coyote_timer")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rgyib"]
+random_pitch = 1.1185787
+random_volume_offset_db = 0.68
+streams_count = 1
+stream_0/stream = ExtResource("6_g6k8r")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hg6s5"]
+random_pitch = 1.1252534
+random_volume_offset_db = 1.02
+streams_count = 1
+stream_0/stream = ExtResource("6_g6k8r")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8t03j"]
+random_pitch = 1.1385913
+random_volume_offset_db = 1.53
+streams_count = 1
+stream_0/stream = ExtResource("7_boad6")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2ieo8"]
+random_pitch = 1.1520872
+random_volume_offset_db = 1.36
+streams_count = 1
+stream_0/stream = ExtResource("8_rgyib")
+
+[node name="Player" type="CharacterBody3D" unique_id=1559029232 node_paths=PackedStringArray("character", "char_mesh", "skater_mesh", "skateboard_animation_player", "skater_animation_tree", "skater_position", "left_foot_pos", "left_foot_bone", "right_foot_pos", "right_foot_bone", "coyote_timer", "sketchy_jump_timer", "decel_bonus_timer")]
 collision_layer = 9
 collision_mask = 9
 floor_constant_speed = true
 floor_block_on_wall = false
 floor_max_angle = 1.4835298
-floor_snap_length = 0.4
+floor_snap_length = 0.2
 script = ExtResource("1_oul6g")
 turn_speed = 0.06
 max_velocity = 14.0
-max_total_velocity = 30.0
+max_total_velocity = 16.0
 acceleration = 0.1
 deceleration = 0.2
 character = NodePath("CharacterModel")
@@ -89,6 +116,8 @@ left_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/Lef
 right_foot_pos = NodePath("CharacterModel/RightFootTarget")
 right_foot_bone = NodePath("CharacterModel/skateboardtest/Armature/Skeleton3D/RightFootBone")
 coyote_timer = NodePath("CoyoteTimer")
+sketchy_jump_timer = NodePath("SketchyJumpTimer")
+decel_bonus_timer = NodePath("DecelBonusTimer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1935020394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8436425, 0)
@@ -157,9 +186,9 @@ collision_layer = 4
 collision_mask = 4
 parent_collision_ignore = NodePath("../../../../../..")
 simulation_precision = 4
-total_mass = 50.0
+total_mass = 25.0
 linear_stiffness = 1.0
-damping_coefficient = 20.0
+damping_coefficient = 10.0
 pinned_points = [2, 0]
 attachments/0/point_index = 2
 attachments/0/spatial_attachment_path = NodePath("..")
@@ -256,7 +285,34 @@ parameters/pose_blend/blend_position = 1.0
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1072539594]
 wait_time = 0.5
 
+[node name="SketchyJumpTimer" type="Timer" parent="." unique_id=2122867803]
+wait_time = 0.2
+
+[node name="DecelBonusTimer" type="Timer" parent="." unique_id=72397100]
+
+[node name="SkateboardOnGround" type="AudioStreamPlayer3D" parent="." unique_id=687518622]
+stream = SubResource("AudioStreamRandomizer_rgyib")
+max_db = 1.293
+pitch_scale = 0.9
+
+[node name="SkateboardGrind" type="AudioStreamPlayer3D" parent="." unique_id=680726817]
+stream = SubResource("AudioStreamRandomizer_hg6s5")
+pitch_scale = 1.62
+
+[node name="SkateboardOllie" type="AudioStreamPlayer3D" parent="." unique_id=1193619529]
+stream = SubResource("AudioStreamRandomizer_8t03j")
+pitch_scale = 0.9
+
+[node name="SkateboardLand" type="AudioStreamPlayer3D" parent="." unique_id=833667724]
+stream = SubResource("AudioStreamRandomizer_2ieo8")
+pitch_scale = 0.9
+
+[node name="AirTimer" type="Timer" parent="." unique_id=1503635585]
+wait_time = 0.25
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="SketchyJumpTimer" to="." method="_on_sketchy_jump_timer_timeout"]
+[connection signal="timeout" from="DecelBonusTimer" to="." method="_on_decel_bonus_timer_timeout"]
 
 [editable path="CharacterModel/skater1_clothes_test1"]
 [editable path="CharacterModel/skateboardtest"]

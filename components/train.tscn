@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://kbjijgcbeawe"]
+
+[ext_resource type="Material" uid="uid://ckhgvow2g5gbb" path="res://assets/materials/env/building_window_light_1.tres" id="3_saieo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc7ua"]
+albedo_color = Color(0.82436484, 0.1230086, 0.14410776, 1)
+
+[node name="Train" type="CSGBox3D" unique_id=66905964]
+use_collision = true
+size = Vector3(73.8667, 3.7156982, 6.240967)
+material = SubResource("StandardMaterial3D_vc7ua")
+
+[node name="Windows" type="Node3D" parent="." unique_id=634943177]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Windows" unique_id=1132142730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.222466, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Windows" unique_id=2143334576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.986755, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Windows" unique_id=238716052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.196156, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Windows" unique_id=1533335408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4702215, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Windows" unique_id=1772859062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.602447, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Windows" unique_id=1868025573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.840546, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Windows" unique_id=1228735031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.806328, 0.5094826, 0.04510498)
+size = Vector3(8.581543, 1.5644531, 6.7962646)
+material = ExtResource("3_saieo")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Windows" unique_id=1854702060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.604866, 0.5094826, 0.0073242188)
+size = Vector3(1, 1.5644531, 5.272461)
+material = ExtResource("3_saieo")

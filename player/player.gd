@@ -26,13 +26,26 @@ var skater_default_position: Vector3 = Vector3(-0.137, 1.054, 0.0)
 @onready var back_wheel_origin: Node3D = $CharacterModel/BackWheelRayOrigin
 @onready var front_col_shape: CollisionShape3D = $FrontCollisionShape
 @onready var back_col_shape: CollisionShape3D = $BackCollisionShape
+@onready var rolling_sfx: AudioStreamPlayer3D = $SkateboardOnGround
+@onready var grinding_sfx: AudioStreamPlayer3D = $SkateboardGrind
+@onready var ollie_sfx: AudioStreamPlayer3D = $SkateboardOllie
+@onready var landing_sfx: AudioStreamPlayer3D = $SkateboardLand
+var play_landing_sfx_timer: float = 0.0
+var play_landing_sfx_buffer: float = 0.25
 
 @export var UI_jumpbar: ProgressBar
+@export var UI_boostbar: ProgressBar
+var max_boost: float = 5.0
+var boost_value: float = max_boost
 @export var UI_stopwatch: Label
 var elapsed_time: float = 0.0
 @export var player_start: Node3D
 @export var coyote_timer: Timer
 var can_coyote_jump: bool = false
+@export var sketchy_jump_timer: Timer
+var sketchy_jump_flag: bool = false
+@export var decel_bonus_timer: Timer
+var decel_bonus_flag: bool = false
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 1.1
@@ -52,6 +65,7 @@ var desired_rot: Vector3 = Vector3.ZERO
 var front_hit_ang_test: float = 0.0
 var on_ramp: bool = false
 var grinding: bool = false
+var is_boosting: bool = false
 var grind_follow: Node3D
 var grinding_rail: Rail
 var alt_vel: Vector3 = Vector3.ZERO
@@ -72,6 +86,35 @@ var actual_decel: float = deceleration
 var front_hit_point: Vector3 = Vector3.ZERO
 var back_hit_point: Vector3 = Vector3.ZERO
 
+func handle_bonus_decel():
+	if is_boosting:
+		decel_bonus_flag = false
+		decel_bonus_timer.stop()
+		decel_bonus_timer.wait_time = 1.0
+		return
+	if grinding:
+		decel_bonus_flag = false
+		decel_bonus_timer.stop()
+		decel_bonus_timer.wait_time = 1.0
+		return
+	if character.rotation.x < -0.3: # or character.rotation.x > 0.3:
+		decel_bonus_flag = false
+		decel_bonus_timer.stop()
+		decel_bonus_timer.wait_time = 1.0
+		return
+	if !is_on_floor():
+		decel_bonus_flag = false
+		decel_bonus_timer.stop()
+		decel_bonus_timer.wait_time = 1.0
+		return
+	if decel_bonus_timer.is_stopped():
+		decel_bonus_timer.wait_time = 1.0
+		decel_bonus_timer.start()
+		
+func handle_boost(delta: float) -> void:
+	if grinding:
+		add_boost_value(2.0)
+
 func stop_grinding():
 	if grinding:
 		grinding = false
@@ -83,8 +126,8 @@ func stop_grinding():
 	grinding_rail = null
 
 func jump(delta: float) -> void:
-	#if self.velocity.y < 0.0:
-	#	self.velocity.y = 0.0
+	if self.velocity.y < 0.0:
+		self.velocity.y = 0.0
 	charging_jump = false
 	has_jumped = true
 	jump_velocity = jump_strength
@@ -96,6 +139,7 @@ func jump(delta: float) -> void:
 
 func handle_jumping(delta: float) -> void:
 	if not is_on_floor():
+		play_landing_sfx_timer += delta
 		if !has_jumped and !just_fell and !on_ramp and !charging_jump:
 			jump_velocity = 0.0
 			self.velocity.y = 0.0
@@ -103,27 +147,35 @@ func handle_jumping(delta: float) -> void:
 		in_air = true
 		#self.up_direction = Vector3.UP
 		jump_velocity += get_gravity().y * delta
+		var altered_softener = jump_softener
+		if is_boosting:
+			altered_softener = 9.8
 		if jump_velocity < 0:
-			jump_velocity += jump_softener * delta
+			jump_velocity += altered_softener * delta
 	else:
+		#sketchy_jump_timer.stop()
 		just_fell = false
 		if in_air:
 			just_landed = true
+			if play_landing_sfx_timer > play_landing_sfx_buffer:
+				landing_sfx.play()
 		else:
 			just_landed = false
 		in_air = false
-			
-		if has_jumped:
+		if has_jumped and sketchy_jump_flag:
 			has_jumped = false
+		play_landing_sfx_timer = 0.0
+			
 	if Input.is_action_pressed("jump") and (is_on_floor() or grinding or can_coyote_jump) and !has_jumped:
 		jump_strength += 1.1 * delta
 		if jump_strength > max_jump_strength:
 			jump_strength = max_jump_strength
 		charging_jump = true
 	if Input.is_action_just_released("jump") and (is_on_floor() or grinding or can_coyote_jump) and !has_jumped:
-		print("just released jump with: ")
-		print("jump strength: ", jump_strength)
-		print("y vel is: ", self.velocity.y)
+		sketchy_jump_flag = false
+		ollie_sfx.play()
+		if sketchy_jump_timer.is_stopped():
+			sketchy_jump_timer.start()
 		jump(delta)
 		
 func handle_direction(delta: float) -> void:
@@ -131,7 +183,7 @@ func handle_direction(delta: float) -> void:
 	var direction = Vector3(input_dir.x, 0.0, -input_dir.y).rotated(Vector3.UP, camera_parent.rotation.y).normalized()
 	if grinding and grinding_rail:
 		direction = -grinding_rail.follow_object.transform.basis.z
-		current_velocity += 5.0 * delta
+		bonus_velocity += 10.0 * delta
 	input_dir_tracking = input_dir
 		
 	var speed = direction.length() * SPEED
@@ -155,9 +207,12 @@ func handle_direction(delta: float) -> void:
 	#current_velocity += bonus_velocity
 		if is_on_floor() and current_velocity > 0.0:
 			current_velocity -= deceleration
-	if current_velocity > max_total_velocity:
-		current_velocity = max_total_velocity
-	bonus_velocity -= (deceleration * 0.25)
+	if current_velocity > max_velocity:
+		current_velocity = max_velocity
+	if bonus_velocity > max_total_velocity:
+		bonus_velocity = max_total_velocity
+	if decel_bonus_flag:
+		bonus_velocity -= deceleration * 1.0
 	if bonus_velocity < 0.0:
 		bonus_velocity = 0.0
 	
@@ -171,24 +226,34 @@ func handle_rotation(delta: float) -> void:
 		else:
 			character.rotation.y = lerp_angle(character.rotation.y, rotation_target.rotation.y, turn_speed)
 		if is_on_floor():
-			on_ramp = self.up_direction != Vector3.UP
+			# this is haaaacky but it was always returning true so I have programmed everything around that 
+			# working so I don't want to change it now in case it breaks a bunch of things. :) =) x) :D =]
+			on_ramp = true#character.transform.basis.z.y < -0.3
+			#if on_ramp:
+				#print("I am on a ramp")
+			#else:
+				#print("I am not on a ramp thus")
+				#decel_bonus_flag = false
 			if -character.transform.basis.z.y < 0.0: # if we are going down a ramp, increase current velocity
-				current_velocity += 5.0 * delta
+				bonus_velocity += 5.0 * delta
 			var b_rotation := Quaternion(character.transform.basis.y, desired_rot)
 			character.transform.basis = lerp(character.transform.basis, Basis(b_rotation * character.transform.basis.get_rotation_quaternion()), 0.25)
 		else:
 			var b_rotation := Quaternion(character.transform.basis.y, desired_rot)
 			character.transform.basis = lerp(character.transform.basis, Basis(b_rotation * character.transform.basis.get_rotation_quaternion()), 0.05)
-		
-		#if is_on_floor():
-
-		self.velocity.x = -character.transform.basis.z.x * current_velocity
-		self.velocity.z = -character.transform.basis.z.z * current_velocity
+			
+		self.velocity.x = -character.transform.basis.z.x * (current_velocity + bonus_velocity)
+		self.velocity.z = -character.transform.basis.z.z * (current_velocity + bonus_velocity)
 		if is_on_floor() and !grinding and on_ramp:
 			var down_force = -self.up_direction * 9.8
 			self.velocity += down_force * delta
 		if not is_on_floor() or has_jumped:
 			self.velocity += jump_velocity * self.up_direction
+
+func reset_bonus_decel():
+	decel_bonus_flag = false
+	decel_bonus_timer.wait_time = 1.0
+	decel_bonus_timer.stop()
 
 func _ready() -> void:
 	coyote_timer.stop()
@@ -197,20 +262,47 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()
 	elapsed_time += delta
-	UI_stopwatch.text = str(elapsed_time).pad_decimals(2)
-		
+	if UI_stopwatch:
+		UI_stopwatch.text = str(elapsed_time).pad_decimals(2)
+
 func reset():
 	jump_velocity = 0.0
+	is_boosting = false
 	charging_jump = false
 	on_ramp = false
 	in_air = false
 	current_velocity = 0.0
+	bonus_velocity = 0.0
+	has_jumped = false
 	stop_grinding()
-	self.global_position = player_start.global_position
+	if player_start:
+		self.global_position = player_start.global_position
+	else:
+		self.global_position = Vector3(50.0, 3.0, -40.0)
 	elapsed_time = 0.0
 	coyote_timer.stop()
+	coyote_timer.wait_time = 1.0
+	sketchy_jump_timer.stop()
+	sketchy_jump_timer.wait_time = 0.2
+	sketchy_jump_flag = false
+	boost_value = 5.0
 	
+func handle_sfx() -> void:
+	if current_velocity > 2.0 and (is_on_floor() or play_landing_sfx_timer < play_landing_sfx_buffer) and !grinding:
+		if !rolling_sfx.playing:
+			rolling_sfx.play()
+	elif rolling_sfx.playing and (!is_on_floor() or current_velocity <= 2.0 or grinding):
+		rolling_sfx.stop()
+	if grinding:
+		if !grinding_sfx.playing:
+			grinding_sfx.play()
+	else:
+		grinding_sfx.stop()
+		
 func _physics_process(delta: float) -> void:
+	handle_sfx()
+	handle_boost(delta)
+	handle_bonus_decel()
 	if UI_jumpbar:
 		UI_jumpbar.value = jump_strength
 	if char_mesh:
@@ -230,21 +322,25 @@ func _physics_process(delta: float) -> void:
 	var blend_amount = (current_velocity + 0.01) / 10.0
 	skater_animation_tree.set("parameters/pose_blend/blend_position", blend_amount)
 	character.global_position = Vector3(self.global_position.x, self.global_position.y, self.global_position.z)
-	#front_col_shape.global_position = front_wheel_origin.global_position
-	#back_col_shape.global_position = back_wheel_origin.global_position
+	# this is actually going to be a "boost" instead of pushing to make it easier
+	# there will be a fuel/energy mechanic related to grinding etc.
+	if Input.is_action_pressed("push"):
+		if boost_value > 0.0:
+			is_boosting = true
+			bonus_velocity += 12.0 * delta
+			add_boost_value(-5.0)
+		else:
+			is_boosting = false
+	elif Input.is_action_just_released("push"):
+		is_boosting = false
 	handle_jumping(delta)
-	if !grinding:
-		if is_on_floor():
-			# this is actually going to be a "boost" instead of pushing to make it easier
-			# there will be a fuel/energy mechanic related to grinding etc.
-			if Input.is_action_just_pressed("push"):
-				bonus_velocity += 15.0 * delta
+	if !grinding:			
 		handle_direction(delta)
 		handle_rotation(delta)
 	#print("final velocity: ", self.velocity)
 	if grinding and grinding_rail:
-		self.velocity = (-grinding_rail.follow_object.global_transform.basis.z * grinding_rail.dir) * current_velocity
-
+		self.velocity = (-grinding_rail.follow_object.global_transform.basis.z * grinding_rail.dir) * (current_velocity + bonus_velocity)
+#	print("total velos: ", current_velocity, ", ", bonus_velocity, " total: ", current_velocity + bonus_velocity)
 	move_and_slide()
 	if grinding and grinding_rail:
 			grinding_rail.set_progress(self.global_position)
@@ -304,7 +400,29 @@ func rayRampPosition():
 			desired_rot = result.normal
 			self.up_direction = result.normal
 
+func add_boost_value(value: float) -> void:
+	boost_value += value * self.get_physics_process_delta_time()
+	if boost_value > 5.0:
+		boost_value = 5.0
+	if boost_value < 0.0:
+		boost_value = 0.0
+	if UI_boostbar:
+		UI_boostbar.value = boost_value
 
 func _on_coyote_timer_timeout() -> void:
-	print("can't coyote jump")
 	can_coyote_jump = false
+
+func _on_sketchy_jump_timer_timeout() -> void:
+	sketchy_jump_flag = true
+
+func _on_decel_bonus_timer_timeout() -> void:
+	decel_bonus_flag = true
+
+func _on_gap_1_body_entered(body: Node3D) -> void:
+	var player = body as Player
+	if player:
+		if !is_on_floor():
+			# put text on screen
+			bonus_velocity += 20.0 * self.get_physics_process_delta_time()
+			add_boost_value(5.0)
+		
