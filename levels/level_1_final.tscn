@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dx0ftbh3ls2hq"]
 
 [ext_resource type="Texture2D" uid="uid://b2byb74e77sgh" path="res://assets/skybox/HdrOutdoorSnowMountainsEveningClear001_HDR_1K.exr" id="1_6apr2"]
+[ext_resource type="Script" uid="uid://dntvt3f5c64ri" path="res://levels/game_state_handler.gd" id="1_30hsh"]
 [ext_resource type="PackedScene" uid="uid://oupdsstfyque" path="res://components/player_camera.tscn" id="2_rqslx"]
 [ext_resource type="Script" uid="uid://mvr60854jv1k" path="res://levels/player_turn_target.gd" id="3_v8yib"]
 [ext_resource type="Script" uid="uid://cxorov257t5mx" path="res://components/rail.gd" id="4_2r4hg"]
@@ -37,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://c367ghxkgceca" path="res://assets/models/barredwindow.glb" id="34_kryij"]
 [ext_resource type="PackedScene" uid="uid://ctgw7t4wl18qf" path="res://assets/models/truck1_with_windows.glb" id="36_0nw80"]
 [ext_resource type="Material" uid="uid://dyv3urilfx73j" path="res://assets/materials/truck/truck_under.tres" id="37_dfmyi"]
+[ext_resource type="PackedScene" uid="uid://bxg1ndxxwqtws" path="res://assets/models/dictator-statue.glb" id="38_iwwib"]
 
 [sub_resource type="Gradient" id="Gradient_iwwib"]
 colors = PackedColorArray(0.021434637, 0.021434635, 0.021434633, 0.12156863, 1.3427868, 0.84549344, 0.8193202, 1)
@@ -342,6 +344,31 @@ points = PackedVector3Array(-3.9897854, 5.4972215, 1.4121451, 3.8852472, 0.46384
 albedo_color = Color(0.16822374, 0.37176326, 0.40143886, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0nw80"]
+
+[sub_resource type="Curve3D" id="Curve3D_iwwib"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.26202393, 0.27401733, 3.8471832, 0, 0, 0, 0, 0, 0, -0.29193115, 3.0984802, -6.6800537),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_30hsh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iwwib"]
+size = Vector3(3.532959, 3.5406494, 13.499855)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_iwwib"]
+height = 4.3012695
+radius = 1.0014648
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iwwib"]
+animation = &"hero_pose"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_30hsh"]
+graph_offset = Vector2(-282, -10)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_iwwib")
+nodes/Animation/position = Vector2(28, 207)
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hfcfa"]
 shader = ExtResource("23_dkmxw")
@@ -655,35 +682,6 @@ transform = Transform3D(6.1352152e-06, 0.5564069, 0.83090615, -2.980232e-08, 0.8
 visible = false
 mesh = SubResource("SphereMesh_7bo0f")
 
-[node name="level_1_rail_4" parent="LevelTerrain" unique_id=1206537246 instance=ExtResource("5_3h0fq")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -89.2792, -46.265556, -245.38744)
-
-[node name="Cube_002" parent="LevelTerrain/level_1_rail_4" index="0" unique_id=1279284586]
-surface_material_override/0 = ExtResource("5_b8goh")
-
-[node name="Rail" type="Area3D" parent="LevelTerrain/level_1_rail_4" unique_id=558850909 node_paths=PackedStringArray("p", "follow_object", "follow_path", "path")]
-collision_layer = 8
-collision_mask = 8
-script = ExtResource("4_2r4hg")
-p = NodePath("../../../Player")
-follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
-follow_path = NodePath("Path3D/PathFollow3D")
-path = NodePath("Path3D")
-metadata/_custom_type_script = "uid://cxorov257t5mx"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTerrain/level_1_rail_4/Rail" unique_id=264045718]
-shape = SubResource("ConcavePolygonShape3D_v8yib")
-
-[node name="Path3D" type="Path3D" parent="LevelTerrain/level_1_rail_4/Rail" unique_id=1485877459]
-curve = SubResource("Curve3D_2r4hg")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="LevelTerrain/level_1_rail_4/Rail/Path3D" unique_id=567518229]
-transform = Transform3D(6.1352152e-06, 0.5564069, 0.83090615, -2.980232e-08, 0.83090615, -0.5564069, -1, 3.388913e-06, 5.1143697e-06, 51.434193, -9.468321, 2.044)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTerrain/level_1_rail_4/Rail/Path3D/PathFollow3D" unique_id=1360487877]
-visible = false
-mesh = SubResource("SphereMesh_7bo0f")
-
 [node name="level_1_rail_3" parent="LevelTerrain" unique_id=175902037 instance=ExtResource("5_3h0fq")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 271.68405, -90.00032, -387.138)
 
@@ -766,7 +764,13 @@ size = Vector3(2.1680756, 40.929413, 2.308632)
 material = ExtResource("12_1kf1q")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="LevelTerrain/TEMPORARY" unique_id=159947487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.74018, -0.47201538, 15.601797)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.716007, -0.49939537, 15.600221)
+use_collision = true
+size = Vector3(64.22638, 27.8891, 15.690338)
+material = ExtResource("12_1kf1q")
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="LevelTerrain/TEMPORARY" unique_id=1315738019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.716007, -0.49939537, 15.600221)
 use_collision = true
 size = Vector3(64.22638, 27.8891, 15.690338)
 material = ExtResource("12_1kf1q")
@@ -970,10 +974,10 @@ size = Vector3(17.715607, 141, 131.17575)
 material = ExtResource("14_ybnx2")
 
 [node name="CSGBox3D23" type="CSGBox3D" parent="LevelTerrain/TEMPORARY" unique_id=2101674877]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100.99638, -184.62035, -873.5608)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.119934, -180.75018, -873.5608)
 use_collision = true
 collision_layer = 3
-size = Vector3(72.16321, 173.25775, 229.97112)
+size = Vector3(53.039093, 173.25775, 229.97112)
 material = ExtResource("14_ybnx2")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="LevelTerrain/TEMPORARY" unique_id=497682929]
@@ -983,7 +987,7 @@ collision_layer = 3
 polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
 
 [node name="CSGPolygon3D2" type="CSGPolygon3D" parent="LevelTerrain/TEMPORARY" unique_id=633825103]
-transform = Transform3D(-3.915592e-06, 0, 52.385296, 0, 32.4, 0, -89.57831, 0, -2.289834e-06, 134.48969, -130.34923, -670.4127)
+transform = Transform3D(-3.915592e-06, 0, 52.385296, 0, 32.4, 0, -89.57831, 0, -2.289834e-06, 134.48969, -126.479065, -669.1477)
 use_collision = true
 collision_layer = 3
 polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
@@ -1337,11 +1341,12 @@ margin = 0.05
 
 [node name="CameraTargetPos" type="Node3D" parent="CameraLookAt/SpringArm3D" unique_id=1485857300]
 
-[node name="Player" parent="." unique_id=1559029232 node_paths=PackedStringArray("camera", "camera_parent", "rotation_target", "UI_jumpbar", "UI_boostbar", "UI_stopwatch", "player_start") instance=ExtResource("8_31hw0")]
+[node name="Player" parent="." unique_id=1559029232 node_paths=PackedStringArray("camera", "camera_parent", "rotation_target", "game_state", "UI_jumpbar", "UI_boostbar", "UI_stopwatch", "player_start") instance=ExtResource("8_31hw0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.785858, 17.423092, 0)
 camera = NodePath("../PlayerCamera")
 camera_parent = NodePath("../CameraLookAt")
 rotation_target = NodePath("../PlayerTurnTarget")
+game_state = NodePath("../GameStateHandler")
 UI_jumpbar = NodePath("../CenterContainer/MarginContainer/HBoxContainer/JumpBar")
 UI_boostbar = NodePath("../CenterContainer/MarginContainer/HBoxContainer/BoostBar")
 UI_stopwatch = NodePath("../UI/TimerLabel")
@@ -1463,6 +1468,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.90791, -95.8013, -745.1095
 mesh = ExtResource("22_7allc")
 surface_material_override/2 = ExtResource("31_7allc")
 
+[node name="MeshInstance3D33" type="MeshInstance3D" parent="BuildingParent" unique_id=869450061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.90791, -110.2448, -841.85284)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
+[node name="MeshInstance3D34" type="MeshInstance3D" parent="BuildingParent" unique_id=213976696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.90791, -70.86056, -946.2989)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
 [node name="MeshInstance3D17" type="MeshInstance3D" parent="BuildingParent" unique_id=747142820]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 139.87614, -138.19621, -570.79565)
 mesh = ExtResource("22_7allc")
@@ -1475,6 +1490,26 @@ surface_material_override/2 = ExtResource("31_7allc")
 
 [node name="MeshInstance3D29" type="MeshInstance3D" parent="BuildingParent" unique_id=1834521118]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 142.53366, -117.723724, -741.90857)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
+[node name="MeshInstance3D35" type="MeshInstance3D" parent="BuildingParent" unique_id=2046439679]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 142.53366, -129.43869, -845.2022)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
+[node name="MeshInstance3D36" type="MeshInstance3D" parent="BuildingParent" unique_id=480181841]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 142.53366, -100.69967, -954.8003)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
+[node name="MeshInstance3D37" type="MeshInstance3D" parent="BuildingParent" unique_id=1857845220]
+transform = Transform3D(0.1213671, 0, -0.9926077, 0, 1, 0, 0.9926077, 0, 0.1213671, 103.822586, -142.80588, -1055.2502)
+mesh = ExtResource("22_7allc")
+surface_material_override/2 = ExtResource("31_7allc")
+
+[node name="MeshInstance3D38" type="MeshInstance3D" parent="BuildingParent" unique_id=891175702]
+transform = Transform3D(0.1213671, 0, -0.9926077, 0, 1, 0, 0.9926077, 0, 0.1213671, 103.822586, -29.273098, -1055.2502)
 mesh = ExtResource("22_7allc")
 surface_material_override/2 = ExtResource("31_7allc")
 
@@ -2039,8 +2074,83 @@ transform = Transform3D(-3.6119008e-09, 0, -0.08263066, 0, 1.2542013, 0, 0.08263
 mesh = SubResource("ArrayMesh_xp1en")
 surface_material_override/1 = ExtResource("31_7allc")
 
+[node name="Cube_009" type="MeshInstance3D" parent="barredwindow" unique_id=961211299]
+transform = Transform3D(-3.6119008e-09, 0, -0.08263066, 0, 1.2542013, 0, 0.08263066, 0, -3.6119008e-09, 61.879025, -2.825632, 0.07719827)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_017" type="MeshInstance3D" parent="barredwindow" unique_id=382405875]
+transform = Transform3D(-0.08263066, 0, 7.2238016e-09, 0, 1.2542013, 0, -7.2238016e-09, 0, -0.08263066, 114.75841, -2.825632, 0.07719827)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_018" type="MeshInstance3D" parent="barredwindow" unique_id=2028825977]
+transform = Transform3D(-0.08263066, 0, 7.2238016e-09, 0, 1.2542013, 0, -7.2238016e-09, 0, -0.08263066, 114.75841, -2.825632, 12.110777)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_019" type="MeshInstance3D" parent="barredwindow" unique_id=1377900431]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 82.562515, -14.505039, -37.53711)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_020" type="MeshInstance3D" parent="barredwindow" unique_id=845945068]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 70.53047, -14.505039, -37.72928)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_021" type="MeshInstance3D" parent="barredwindow" unique_id=72065777]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 46.255264, -14.415058, -37.53711)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
+[node name="Cube_022" type="MeshInstance3D" parent="barredwindow" unique_id=2048462457]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 34.22322, -14.415058, -37.72928)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("31_7allc")
+
 [node name="Cube_003" type="MeshInstance3D" parent="barredwindow" unique_id=1447715045]
 transform = Transform3D(-3.6119008e-09, 0, -0.08263066, 0, 1.2542013, 0, 0.08263066, 0, -3.6119008e-09, 17.70823, 2.9762158, -0.06290269)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_008" type="MeshInstance3D" parent="barredwindow" unique_id=2050146217]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 17.70823, 2.9762158, 11.360743)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_011" type="MeshInstance3D" parent="barredwindow" unique_id=1882799085]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 17.70823, -1.9705901, 11.1802845)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_012" type="MeshInstance3D" parent="barredwindow" unique_id=1969955329]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 27.495918, -1.9705901, 11.127636)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_013" type="MeshInstance3D" parent="barredwindow" unique_id=1759767567]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 42.81323, -6.325814, 11.127636)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_014" type="MeshInstance3D" parent="barredwindow" unique_id=1786270016]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 54.383842, -6.325814, 11.127636)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_015" type="MeshInstance3D" parent="barredwindow" unique_id=116450617]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 42.81323, 0.14568663, 11.127636)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_016" type="MeshInstance3D" parent="barredwindow" unique_id=1346395714]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 54.383842, 0.14568663, 11.127636)
+mesh = SubResource("ArrayMesh_xp1en")
+surface_material_override/1 = ExtResource("5_rqslx")
+
+[node name="Cube_010" type="MeshInstance3D" parent="barredwindow" unique_id=1514352696]
+transform = Transform3D(-3.6119008e-09, 0, 0.08263066, 0, 1.2542013, 0, -0.08263066, 0, -3.6119008e-09, 17.684055, 2.9488358, 11.074173)
 mesh = SubResource("ArrayMesh_xp1en")
 surface_material_override/1 = ExtResource("5_rqslx")
 
@@ -2246,6 +2356,77 @@ shape = SubResource("ConvexPolygonShape3D_m3wbo")
 transform = Transform3D(0.022602668, 0, 0, 0, 0.023509167, 0, 0, 0, 0.023509167, -0.3671837, 0.012321472, 0.40520573)
 shape = SubResource("ConvexPolygonShape3D_oaibf")
 
+[node name="DictatorRail" type="Area3D" parent="." unique_id=1674601746 node_paths=PackedStringArray("p", "follow_object", "follow_path", "path")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.93538, -50.96604, -200.91148)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("4_2r4hg")
+p = NodePath("../Player")
+follow_object = NodePath("Path3D/PathFollow3D/MeshInstance3D")
+follow_path = NodePath("Path3D/PathFollow3D")
+path = NodePath("Path3D")
+metadata/_custom_type_script = "uid://cxorov257t5mx"
+
+[node name="Path3D" type="Path3D" parent="DictatorRail" unique_id=1541203033]
+curve = SubResource("Curve3D_iwwib")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="DictatorRail/Path3D" unique_id=1781939795]
+transform = Transform3D(0.9999875, 0.0007361756, 0.0027438581, -5.8207175e-11, 0.9658317, -0.25913218, -0.0028409034, 0.25913107, 0.96582794, -0.26202393, 0.27401733, 3.8471832)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DictatorRail/Path3D/PathFollow3D" unique_id=105957990]
+visible = false
+mesh = SubResource("SphereMesh_30hsh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DictatorRail" unique_id=251290784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.091430664, 1.6331177, -1.2054443)
+shape = SubResource("BoxShape3D_iwwib")
+
+[node name="dictator-statue" parent="." unique_id=1183050393 instance=ExtResource("38_iwwib")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -90.87381, -53.00662, -200.91148)
+
+[node name="Skeleton3D" parent="dictator-statue/metarig" parent_id_path=PackedInt32Array(1183050393, 1017469596) index="0" unique_id=1538102781]
+bones/0/position = Vector3(0, 1.0099, -0.05519999)
+bones/1/rotation = Quaternion(-0.06447639, 0, 0, 0.99791926)
+bones/4/rotation = Quaternion(0.15264668, 0.12703352, -0.05578879, 0.9784933)
+bones/5/rotation = Quaternion(-0.094857514, 7.626442e-09, -5.872178e-09, 0.99549085)
+bones/8/rotation = Quaternion(-0.34364158, 0.56756765, -0.56407756, 0.49152222)
+bones/9/rotation = Quaternion(0.01209214, 0.104852185, -0.12850508, 0.98607624)
+bones/10/rotation = Quaternion(-0.006347869, -0.011876761, -0.08097611, 0.99662507)
+bones/13/rotation = Quaternion(-0.40699822, -0.21200144, 0.7043523, 0.5415678)
+bones/14/rotation = Quaternion(0.75374365, 0.032435376, 0.19376272, 0.6271159)
+bones/15/rotation = Quaternion(-0.038828284, -0.21687543, 0.3767476, 0.89973253)
+bones/18/rotation = Quaternion(0.79390645, 1.0456052e-16, -9.568693e-18, 0.60804)
+bones/19/rotation = Quaternion(0.507865, 1.186063e-07, 5.6329952e-08, 0.86143667)
+bones/20/rotation = Quaternion(-0.68926394, 1.5628217e-07, -3.281574e-07, 0.7245103)
+bones/23/rotation = Quaternion(0.99903816, -2.5852491e-17, 2.3658443e-18, 0.043850828)
+bones/24/rotation = Quaternion(0.20177446, 1.0306187e-07, 3.318908e-08, 0.97943205)
+bones/25/rotation = Quaternion(-0.8269223, 1.5025773e-07, -3.9132556e-07, 0.56231636)
+bones/27/rotation = Quaternion(-0.7067677, 0.7067677, -0.021896394, -0.021895893)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="dictator-statue/Cylinder" parent_id_path=PackedInt32Array(1183050393, 1893649700) index="0" unique_id=901166827]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dictator-statue/Cylinder/StaticBody3D" unique_id=2064230296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1506348, 0)
+shape = SubResource("CylinderShape3D_iwwib")
+
+[node name="AnimationTree" type="AnimationTree" parent="dictator-statue" unique_id=624738382]
+tree_root = SubResource("AnimationNodeBlendTree_30hsh")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="dictator-statue" unique_id=1989480743]
+transform = Transform3D(0.25, 0, 0, 0, 0.2394343, -0.07191118, 0, 0.07191118, 0.2394343, 0, -1.2331457, 4.766506)
+spot_range = 30.173061
+spot_angle = 14.501705
+
+[node name="GameStateHandler" type="Node3D" parent="." unique_id=1347243808 node_paths=PackedStringArray("start_ui", "start_text", "start_timer")]
+script = ExtResource("1_30hsh")
+start_ui = NodePath("../StartUI")
+start_text = NodePath("../StartUI/Label")
+start_timer = NodePath("../StartTimer")
+
+[node name="StartTimer" type="Timer" parent="." unique_id=707633223]
+wait_time = 3.0
+
 [node name="ColorRect" type="ColorRect" parent="." unique_id=327827953]
 material = SubResource("ShaderMaterial_hfcfa")
 anchors_preset = 15
@@ -2255,7 +2436,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=2099913558]
-visible = false
 offset_right = 168.0
 offset_bottom = 160.0
 size_flags_horizontal = 3
@@ -2269,7 +2449,6 @@ theme_override_constants/margin_left = 128
 layout_mode = 2
 
 [node name="JumpBar" type="ProgressBar" parent="CenterContainer/MarginContainer/HBoxContainer" unique_id=1315817417]
-visible = false
 custom_minimum_size = Vector2(40, 160)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_tmqf6")
@@ -2281,7 +2460,6 @@ fill_mode = 3
 show_percentage = false
 
 [node name="BoostBar" type="ProgressBar" parent="CenterContainer/MarginContainer/HBoxContainer" unique_id=895782182]
-visible = false
 custom_minimum_size = Vector2(40, 160)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_dkmxw")
@@ -2291,8 +2469,23 @@ value = 5.0
 fill_mode = 3
 show_percentage = false
 
+[node name="StartUI" type="CenterContainer" parent="." unique_id=2069498268]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StartUI" unique_id=1346497616]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Press A to Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="UI" type="Control" parent="." unique_id=167263621]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2326,7 +2519,6 @@ shape = SubResource("BoxShape3D_cr8f8")
 [connection signal="body_entered" from="LevelTerrain/curved_ledge_1/Rail" to="LevelTerrain/curved_ledge_1/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelTerrain/level_1_rail_1/Rail" to="LevelTerrain/level_1_rail_1/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelTerrain/level_1_rail_2/Rail" to="LevelTerrain/level_1_rail_2/Rail" method="_on_body_entered"]
-[connection signal="body_entered" from="LevelTerrain/level_1_rail_4/Rail" to="LevelTerrain/level_1_rail_4/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelTerrain/level_1_rail_3/Rail" to="LevelTerrain/level_1_rail_3/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelTerrain/FlatBars/flatbar_3/Rail" to="LevelTerrain/FlatBars/flatbar_3/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelTerrain/FlatBars/flatbar_5/Rail" to="LevelTerrain/FlatBars/flatbar_5/Rail" method="_on_body_entered"]
@@ -2338,6 +2530,8 @@ shape = SubResource("BoxShape3D_cr8f8")
 [connection signal="body_entered" from="LevelTerrain/FlatBars/flatbar_2/Rail" to="LevelTerrain/FlatBars/flatbar_2/Rail" method="_on_body_entered"]
 [connection signal="body_entered" from="LevelProps/Gap1" to="Player" method="_on_gap_1_body_entered"]
 [connection signal="body_entered" from="Trains/Train/Rail" to="Trains/Train/Rail" method="_on_body_entered"]
+[connection signal="body_entered" from="DictatorRail" to="DictatorRail" method="_on_body_entered"]
+[connection signal="timeout" from="StartTimer" to="GameStateHandler" method="_on_start_timer_timeout"]
 [connection signal="body_entered" from="ResetTrainArea" to="ResetTrainArea" method="_on_body_entered"]
 
 [editable path="LevelTerrain/level_1_street_walls"]
@@ -2345,7 +2539,6 @@ shape = SubResource("BoxShape3D_cr8f8")
 [editable path="LevelTerrain/level_1_part2"]
 [editable path="LevelTerrain/level_1_rail_1"]
 [editable path="LevelTerrain/level_1_rail_2"]
-[editable path="LevelTerrain/level_1_rail_4"]
 [editable path="LevelTerrain/level_1_rail_3"]
 [editable path="LevelTerrain/level_1"]
 [editable path="LevelTerrain/FlatBars/flatbar_3"]
@@ -2379,3 +2572,4 @@ shape = SubResource("BoxShape3D_cr8f8")
 [editable path="Trucks/truck1_with_windows3"]
 [editable path="Trucks/truck1_with_windows4"]
 [editable path="Trucks/truck1_with_windows5"]
+[editable path="dictator-statue"]

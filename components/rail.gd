@@ -26,8 +26,9 @@ func _physics_process(delta: float) -> void:
 		if grind_velocity > max_grind_velocity:
 			grind_velocity = max_grind_velocity
 	#	follow_path.progress += (entry_velocity / 100.0 + grind_velocity) * dir
-		if p.grinding_rail.follow_path.progress <= 0.0 or p.grinding_rail.follow_path.progress >= p.grinding_rail.path.curve.get_baked_length():
-			p.jump(delta)
+		if  p.grinding_rail.follow_path.progress >= p.grinding_rail.path.curve.get_baked_length():
+			p.stop_grinding()
+			#p.jump(delta)
 			#follow_path.progress_ratio = 0.1
 
 func set_progress(player_position: Vector3) -> void:
@@ -52,6 +53,6 @@ func _on_body_entered(body: Node3D) -> void:
 		follow_path.progress = offset
 		self.entry_velocity = player.current_velocity
 		if next_offset < offset:
-			dir = -1
+			dir = 1
 		else:
 			dir = 1

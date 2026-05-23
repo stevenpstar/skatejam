@@ -19,6 +19,7 @@ class_name Player extends CharacterBody3D
 @export var left_foot_bone: BoneAttachment3D
 @export var right_foot_pos: Node3D
 @export var right_foot_bone: BoneAttachment3D
+@export var game_state: GameStateHandler
 var skater_default_position: Vector3 = Vector3(-0.137, 1.054, 0.0)
 
 @onready var front_wheel_origin: Node3D = $CharacterModel/FrontWheelRayOrigin
@@ -263,6 +264,8 @@ func _ready() -> void:
 	coyote_timer.stop()
 
 func _process(delta: float) -> void:
+	if game_state.state != game_state.GameState.RUNNING:
+		return
 	if Input.is_action_just_pressed("reset"):
 		reset()
 	elapsed_time += delta
@@ -278,6 +281,9 @@ func reset():
 	current_velocity = 0.0
 	bonus_velocity = 0.0
 	has_jumped = false
+	ollie_sfx.stop()
+	rolling_sfx.stop()
+	landing_sfx.stop()
 	stop_grinding()
 	if player_start:
 		self.global_position = player_start.global_position
@@ -290,6 +296,7 @@ func reset():
 	sketchy_jump_timer.wait_time = 0.2
 	sketchy_jump_flag = false
 	boost_value = 5.0
+	game_state.set_start()
 	
 func handle_sfx() -> void:
 	if current_velocity > 2.0 and (is_on_floor() or play_landing_sfx_timer < play_landing_sfx_buffer) and !grinding:
@@ -304,6 +311,8 @@ func handle_sfx() -> void:
 		grinding_sfx.stop()
 		
 func _physics_process(delta: float) -> void:
+	if game_state.state != game_state.GameState.RUNNING:
+		return
 	handle_sfx()
 	handle_boost(delta)
 	handle_bonus_decel()
