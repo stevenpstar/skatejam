@@ -1,8 +1,11 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://yxc8n1h31dq1"]
 
+[ext_resource type="Texture2D" uid="uid://dyqowpjq0c6vr" path="res://assets/models/skater1_clothes_test1_Gradient Pallete.png" id="1_5pvwg"]
+
 [resource]
 resource_name = "pants"
 cull_mode = 2
 specular_mode = 1
 albedo_color = Color(0.40718478, 0.6392996, 0.733509, 1)
+albedo_texture = ExtResource("1_5pvwg")
 roughness = 0.5

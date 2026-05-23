@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bsq5li4g4y5pq"]
+
+[ext_resource type="PackedScene" uid="uid://ba5k3g0352sj5" path="res://assets/models/lightning.glb" id="1_sljbm"]
+[ext_resource type="Shader" uid="uid://dr1f3vi1hs4sc" path="res://shaders/lightning.tres" id="2_1kyhn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1kyhn"]
+render_priority = 0
+shader = ExtResource("2_1kyhn")
+
+[node name="Lightning" type="Node3D" unique_id=965318224]
+
+[node name="lightning" parent="." unique_id=1099160200 instance=ExtResource("1_sljbm")]
+
+[node name="Plane" parent="lightning" index="0" unique_id=1779080719]
+cast_shadow = 0
+surface_material_override/0 = SubResource("ShaderMaterial_1kyhn")
+
+[editable path="lightning"]

@@ -30,6 +30,9 @@ var skater_default_position: Vector3 = Vector3(-0.137, 1.054, 0.0)
 @onready var grinding_sfx: AudioStreamPlayer3D = $SkateboardGrind
 @onready var ollie_sfx: AudioStreamPlayer3D = $SkateboardOllie
 @onready var landing_sfx: AudioStreamPlayer3D = $SkateboardLand
+@onready var rocket_sfx: AudioStreamPlayer3D = $RocketBoostSound
+@onready var boost_particles: GPUParticles3D = $CharacterModel/BoostParticles
+@onready var grind_particles: GPUParticles3D = $CharacterModel/GrindParticles
 var play_landing_sfx_timer: float = 0.0
 var play_landing_sfx_buffer: float = 0.25
 
@@ -126,6 +129,7 @@ func stop_grinding():
 	grinding_rail = null
 
 func jump(delta: float) -> void:
+	ollie_sfx.play()
 	if self.velocity.y < 0.0:
 		self.velocity.y = 0.0
 	charging_jump = false
@@ -173,7 +177,7 @@ func handle_jumping(delta: float) -> void:
 		charging_jump = true
 	if Input.is_action_just_released("jump") and (is_on_floor() or grinding or can_coyote_jump) and !has_jumped:
 		sketchy_jump_flag = false
-		ollie_sfx.play()
+		
 		if sketchy_jump_timer.is_stopped():
 			sketchy_jump_timer.start()
 		jump(delta)
@@ -320,7 +324,12 @@ func _physics_process(delta: float) -> void:
 		current_velocity = 0.0
 		bonus_velocity = 0.0
 	var blend_amount = (current_velocity + 0.01) / 10.0
+	if !grinding:
+		blend_amount = clampf(blend_amount, 0.0, 0.9)
+	else:
+		blend_amount = move_toward(blend_amount, 1.0, 0.1)
 	skater_animation_tree.set("parameters/pose_blend/blend_position", blend_amount)
+		
 	character.global_position = Vector3(self.global_position.x, self.global_position.y, self.global_position.z)
 	# this is actually going to be a "boost" instead of pushing to make it easier
 	# there will be a fuel/energy mechanic related to grinding etc.
@@ -329,10 +338,16 @@ func _physics_process(delta: float) -> void:
 			is_boosting = true
 			bonus_velocity += 12.0 * delta
 			add_boost_value(-5.0)
+			if !rocket_sfx.playing:
+				rocket_sfx.play()
 		else:
 			is_boosting = false
+			rocket_sfx.stop()
+
 	elif Input.is_action_just_released("push"):
 		is_boosting = false
+		rocket_sfx.stop()
+	boost_particles.emitting = is_boosting
 	handle_jumping(delta)
 	if !grinding:			
 		handle_direction(delta)
@@ -358,6 +373,7 @@ func _physics_process(delta: float) -> void:
 		grind_timer -= 20.0 * delta
 	else:
 		grind_input = false
+	grind_particles.emitting = grinding
 	if skater_position and skater_mesh:
 		if is_on_floor():
 			skater_position.position.y = skater_default_position.y - current_velocity * 0.015

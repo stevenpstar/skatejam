@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c52i8x46wa0qv"]
+
+[resource]
+resource_name = "truck_window"
+cull_mode = 2
+albedo_color = Color(0.1265757, 0.1265757, 0.1265757, 1)
+roughness = 0.5

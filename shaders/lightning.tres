@@ -1,0 +1,57 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dr1f3vi1hs4sc"]
+
+[ext_resource type="Texture2D" uid="uid://btb8vlq5ltv4b" path="res://assets/textures/lightning.png" id="1_jd2ni"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0m2wv"]
+texture = ExtResource("1_jd2ni")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jd2ni"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_0m2wv"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ojbpw"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(-0.9, 0)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_jd2ni"]
+default_input_values = [0, 0.4, 1, 1.0, 2, 0.5]
+
+[sub_resource type="Gradient" id="Gradient_jd2ni"]
+colors = PackedColorArray(0, 0.6186573, 0.9142303, 1, 1.0709715, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0m2wv"]
+gradient = SubResource("Gradient_jd2ni")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ojbpw"]
+texture = SubResource("GradientTexture1D_0m2wv")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_jd2ni"]
+texture = SubResource("GradientTexture1D_0m2wv")
+texture_type = 1
+
+[resource]
+modes/depth_draw = 1
+modes/cull = 2
+modes/specular = 2
+flags/depth_prepass_alpha = true
+flags/ambient_light_disabled = true
+flags/fog_disabled = true
+nodes/fragment/0/position = Vector2(1040, 240)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_0m2wv")
+nodes/fragment/2/position = Vector2(280, 140)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_jd2ni")
+nodes/fragment/3/position = Vector2(-380, 220)
+nodes/fragment/5/node = SubResource("VisualShaderNodeUVFunc_0m2wv")
+nodes/fragment/5/position = Vector2(0, 160)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_ojbpw")
+nodes/fragment/6/position = Vector2(-200, 380)
+nodes/fragment/7/node = SubResource("VisualShaderNodeSmoothStep_jd2ni")
+nodes/fragment/7/position = Vector2(500, 360)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture_ojbpw")
+nodes/fragment/8/position = Vector2(760, 0)
+nodes/fragment/9/node = SubResource("VisualShaderNodeTexture_jd2ni")
+nodes/fragment/9/position = Vector2(640, 620)
+nodes/fragment/connections = PackedInt32Array(6, 0, 5, 2, 5, 0, 2, 0, 2, 0, 7, 2, 7, 0, 8, 0, 8, 0, 0, 0, 7, 0, 0, 1, 3, 0, 6, 0, 9, 0, 0, 5)

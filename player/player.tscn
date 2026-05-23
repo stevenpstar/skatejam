@@ -1,17 +1,30 @@
 [gd_scene format=3 uid="uid://bb87i66sdtnfv"]
 
 [ext_resource type="Script" uid="uid://dt4ff7gwccn0" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Material" uid="uid://bvvsn1ovvku35" path="res://assets/materials/particles/boost_particle_mat.tres" id="2_8t03j"]
 [ext_resource type="PackedScene" uid="uid://dtijwe4qiubmp" path="res://assets/models/skater1_clothes_test1.glb" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://dlcilud4xlrp0" path="res://assets/models/skateboardtest.glb" id="2_rkbax"]
 [ext_resource type="ArrayMesh" uid="uid://v7f4eob65cxp" path="res://assets/models/skater1_scarf_obj.obj" id="3_yw30f"]
 [ext_resource type="Material" uid="uid://cflvs1kcf6dmh" path="res://assets/materials/player/Material.001.tres" id="4_qjkh3"]
 [ext_resource type="AudioStream" uid="uid://1engu8q7tsmv" path="res://assets/sfx/skate_roll.ogg" id="6_g6k8r"]
+[ext_resource type="AudioStream" uid="uid://c26cxvpuivxdt" path="res://assets/sfx/rocketboost.wav" id="6_hg6s5"]
 [ext_resource type="AudioStream" uid="uid://dqc6oveet030a" path="res://assets/sfx/skate_ollie.ogg" id="7_boad6"]
 [ext_resource type="AudioStream" uid="uid://b0riu8tjy262y" path="res://assets/sfx/skate_land.ogg" id="8_rgyib"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qjkh3"]
 radius = 0.36865234
 height = 1.502372
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rgyib"]
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 0, 1)
+spread = 7.543
+initial_velocity_max = 84.42
+
+[sub_resource type="QuadMesh" id="QuadMesh_8t03j"]
+material = ExtResource("2_8t03j")
+size = Vector2(0.05, 0.05)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.13469732
@@ -24,6 +37,26 @@ emission_energy_multiplier = 0.35
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_oul6g"]
 radius = 0.3
 height = 1.75
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hg6s5"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -4.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8t03j"]
+albedo_color = Color(2.012, 2.012, 2.012, 1)
+emission_enabled = true
+emission = Color(1.462, 1.462, 1.462, 1)
+emission_energy_multiplier = 1.82
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_2ieo8"]
+material = SubResource("StandardMaterial3D_8t03j")
+size = Vector2(0.02, 0.02)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rkbax"]
 radius = 0.07271836
@@ -60,13 +93,20 @@ blend_point_0/node = SubResource("AnimationNodeAnimation_qjkh3")
 blend_point_0/pos = 0.0
 blend_point_1/node = SubResource("AnimationNodeAnimation_g6k8r")
 blend_point_1/pos = 1.0
+min_space = -1.07
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rgyib"]
-graph_offset = Vector2(16, -30)
-nodes/output/position = Vector2(1000, 180)
+graph_offset = Vector2(171, 23)
+nodes/output/position = Vector2(1060, 160)
 nodes/pose_blend/node = SubResource("AnimationNodeBlendSpace1D_boad6")
 nodes/pose_blend/position = Vector2(420, 160)
 node_connections = [&"output", 0, &"pose_blend"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ebec5"]
+random_pitch = 1.1903067
+random_volume_offset_db = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("6_hg6s5")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rgyib"]
 random_pitch = 1.1185787
@@ -125,10 +165,16 @@ shape = SubResource("CapsuleShape3D_qjkh3")
 
 [node name="CharacterModel" type="Node3D" parent="." unique_id=1781312541]
 
-[node name="skater1_clothes_test1" parent="CharacterModel" unique_id=20444894 instance=ExtResource("2_g1dw6")]
+[node name="BoostParticles" type="GPUParticles3D" parent="CharacterModel" unique_id=362452632]
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_rgyib")
+draw_pass_1 = SubResource("QuadMesh_8t03j")
+
+[node name="skater1_clothes_test1" parent="CharacterModel" unique_id=638988124 instance=ExtResource("2_g1dw6")]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.18944955, 1.0543551, -0.094145894)
 
-[node name="Skeleton3D" parent="CharacterModel/skater1_clothes_test1/metarig" parent_id_path=PackedInt32Array(20444894, 297618261) index="0" unique_id=1577241000]
+[node name="Skeleton3D" parent="CharacterModel/skater1_clothes_test1/metarig" parent_id_path=PackedInt32Array(638988124, 1318065285) index="0" unique_id=2109703955]
 bones/0/position = Vector3(0, 0.9908325, -0.06092026)
 bones/1/rotation = Quaternion(-0.00016566366, 2.6658493e-18, 1.4028884e-17, 1)
 bones/2/rotation = Quaternion(0.1059864, -1.2085213e-17, -2.9128206e-17, 0.9943676)
@@ -264,6 +310,16 @@ mesh = SubResource("CapsuleMesh_oul6g")
 [node name="SkaterPosition" type="Node3D" parent="CharacterModel" unique_id=1253409715]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13742365, 1.054, 0)
 
+[node name="GrindParticles" type="GPUParticles3D" parent="CharacterModel" unique_id=32080347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.33159584)
+emitting = false
+amount = 500
+lifetime = 0.13
+explosiveness = 0.07
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hg6s5")
+draw_pass_1 = SubResource("QuadMesh_2ieo8")
+
 [node name="FrontCollisionShape" type="CollisionShape3D" parent="." unique_id=638811708]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1534858, -0.0036887527)
 shape = SubResource("SphereShape3D_rkbax")
@@ -289,6 +345,9 @@ wait_time = 0.5
 wait_time = 0.2
 
 [node name="DecelBonusTimer" type="Timer" parent="." unique_id=72397100]
+
+[node name="RocketBoostSound" type="AudioStreamPlayer3D" parent="." unique_id=1278508346]
+stream = SubResource("AudioStreamRandomizer_ebec5")
 
 [node name="SkateboardOnGround" type="AudioStreamPlayer3D" parent="." unique_id=687518622]
 stream = SubResource("AudioStreamRandomizer_rgyib")

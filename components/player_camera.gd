@@ -20,8 +20,12 @@ func _physics_process(delta: float) -> void:
 		self.look_at(target_look_at.global_position)
 	if target_position:
 		self.global_position = lerp(self.global_position, target_position.global_position, camera_delay)
-	#spring_arm.spring_length = lerpf(spring_arm.spring_length, 3.2 + (0.00 * player.current_velocity), 0.05)
-	#spring_arm.spring_length = clampf(spring_arm.spring_length, 2.2, 3.4)
+	spring_arm.spring_length = lerpf(spring_arm.spring_length, 3.2 - (2.0 * player.current_velocity), 0.05)
+	spring_arm.spring_length = clampf(spring_arm.spring_length, 2.2, 3.2)
 	spring_arm.spring_length = 3.2
-	self.fov = lerpf(self.fov, 70.0 + (0.2 * player.current_velocity), 0.05)
-	#self.fov = clampf(self.fov, 70.0, 110.0)
+	if !player.is_boosting:
+		self.fov = lerpf(self.fov, 70.0 + (1.7 * player.current_velocity), 0.05)
+		#self.fov = clampf(self.fov, 70.0, 110.0)
+	else:
+		self.fov = move_toward(self.fov, 110.0, 1)
+	self.fov = clampf(self.fov, 70.0, 110.0)

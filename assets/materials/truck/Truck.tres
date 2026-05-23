@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ci2li7828fu1h"]
+
+[resource]
+resource_name = "Truck"
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0.03144907, 0.9064613, 1)
+roughness = 0.5

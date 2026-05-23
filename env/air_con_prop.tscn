@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cp2oos3fd3phh"]
+
+[ext_resource type="Script" uid="uid://wh6xkaobgh4w" path="res://env/air_con_prop.gd" id="1_gc867"]
+[ext_resource type="PackedScene" uid="uid://cwhvij57wpk3q" path="res://assets/models/aircon_box.glb" id="1_mtw0u"]
+[ext_resource type="PackedScene" uid="uid://cq6yvv2igfa5p" path="res://assets/models/aircon_fan.glb" id="2_gc867"]
+
+[node name="AirConProp" type="Node3D" unique_id=42988701]
+script = ExtResource("1_gc867")
+
+[node name="aircon_box" parent="." unique_id=1578963684 instance=ExtResource("1_mtw0u")]
+
+[node name="aircon_fan" parent="." unique_id=821151347 instance=ExtResource("2_gc867")]

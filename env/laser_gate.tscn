@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://btq6whpo4ggdt" path="res://env/laser_gate.gd" id="1_1qxp4"]
 [ext_resource type="Material" uid="uid://dr065eokt3cqs" path="res://assets/materials/env/building_grey_1.tres" id="2_2lwfs"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dykx6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qxp4"]
 transparency = 1
 specular_mode = 2
-albedo_color = Color(1.3297741, 0.18212382, 0, 0.408)
+albedo_color = Color(1.0034231, 0, 0.07391759, 1)
+emission_enabled = true
+emission = Color(1.0876014, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yug6p"]
 size = Vector3(9.74707, 4.0058594, 1)
@@ -15,19 +17,29 @@ size = Vector3(9.74707, 4.0058594, 1)
 script = ExtResource("1_1qxp4")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1396860588]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-size = Vector3(1, 4, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45439708, 1.5, 0)
+size = Vector3(0.2, 4, 0.2)
 material = ExtResource("2_2lwfs")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=389907821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.804005, 1.5, 0)
-size = Vector3(1, 4, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.221128, 1.5, 0)
+size = Vector3(0.2, 4, 0.2)
 material = ExtResource("2_2lwfs")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1436992872]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4846687, 1.5, -0.08959961)
-size = Vector3(9.638672, 4, 0.17626953)
-material = SubResource("StandardMaterial3D_dykx6")
+[node name="Beam" type="CSGBox3D" parent="." unique_id=586259693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.389718, 3.2792296, -0.0007542446)
+size = Vector3(9.674, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_1qxp4")
+
+[node name="Beam2" type="CSGBox3D" parent="." unique_id=1022623007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.389718, 1.7662141, -0.0007542446)
+size = Vector3(9.674, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_1qxp4")
+
+[node name="Beam3" type="CSGBox3D" parent="." unique_id=124221092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.389718, 0.09152675, -0.0007542446)
+size = Vector3(9.674, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_1qxp4")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1673302504]
 
