@@ -34,6 +34,7 @@ var skater_default_position: Vector3 = Vector3(-0.137, 1.054, 0.0)
 @onready var rocket_sfx: AudioStreamPlayer3D = $RocketBoostSound
 @onready var boost_particles: GPUParticles3D = $CharacterModel/BoostParticles
 @onready var grind_particles: GPUParticles3D = $CharacterModel/GrindParticles
+@export var rain_particles: GPUParticles3D
 var play_landing_sfx_timer: float = 0.0
 var play_landing_sfx_buffer: float = 0.25
 
@@ -262,6 +263,7 @@ func reset_bonus_decel():
 
 func _ready() -> void:
 	coyote_timer.stop()
+	reset()
 
 func _process(delta: float) -> void:
 	if game_state.state != game_state.GameState.RUNNING:
@@ -272,7 +274,16 @@ func _process(delta: float) -> void:
 	if UI_stopwatch:
 		UI_stopwatch.text = str(elapsed_time).pad_decimals(2)
 
+func stop_sounds_and_particles() -> void:
+	ollie_sfx.stop()
+	rolling_sfx.stop()
+	landing_sfx.stop()
+	grinding_sfx.stop()
+	grind_particles.emitting = false
+	boost_particles.emitting = false
+
 func reset():
+	Input.stop_joy_vibration(0)
 	jump_velocity = 0.0
 	is_boosting = false
 	charging_jump = false
@@ -281,9 +292,7 @@ func reset():
 	current_velocity = 0.0
 	bonus_velocity = 0.0
 	has_jumped = false
-	ollie_sfx.stop()
-	rolling_sfx.stop()
-	landing_sfx.stop()
+	stop_sounds_and_particles()
 	stop_grinding()
 	if player_start:
 		self.global_position = player_start.global_position
@@ -297,6 +306,8 @@ func reset():
 	sketchy_jump_flag = false
 	boost_value = 5.0
 	game_state.set_start()
+	character.rotation = Vector3(0.0, 0.0, 0.0)
+	character.rotate_y(deg_to_rad(-90.0))
 	
 func handle_sfx() -> void:
 	if current_velocity > 2.0 and (is_on_floor() or play_landing_sfx_timer < play_landing_sfx_buffer) and !grinding:
@@ -311,6 +322,8 @@ func handle_sfx() -> void:
 		grinding_sfx.stop()
 		
 func _physics_process(delta: float) -> void:
+	if self.global_position.y < -200.0:
+		reset()
 	if game_state.state != game_state.GameState.RUNNING:
 		return
 	handle_sfx()
@@ -363,7 +376,10 @@ func _physics_process(delta: float) -> void:
 		handle_rotation(delta)
 	#print("final velocity: ", self.velocity)
 	if grinding and grinding_rail:
+		Input.start_joy_vibration(0, 0.05, 0.05, 0.1)
 		self.velocity = (-grinding_rail.follow_object.global_transform.basis.z * grinding_rail.dir) * (current_velocity + bonus_velocity)
+	else:
+		Input.stop_joy_vibration(0)
 #	print("total velos: ", current_velocity, ", ", bonus_velocity, " total: ", current_velocity + bonus_velocity)
 	move_and_slide()
 	if grinding and grinding_rail:
@@ -451,3 +467,13 @@ func _on_gap_1_body_entered(body: Node3D) -> void:
 			bonus_velocity += 20.0 * self.get_physics_process_delta_time()
 			add_boost_value(5.0)
 		
+
+func _on_norainbox_body_entered(body: Node3D) -> void:
+	var player = body as Player
+	if player:
+		rain_particles.emitting = false
+
+func _on_norainbox_body_exited(body: Node3D) -> void:
+	var player = body as Player
+	if player:
+		rain_particles.emitting = true

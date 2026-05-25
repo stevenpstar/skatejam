@@ -1,6 +1,7 @@
 extends Node3D
 
-@export var player: Player
+@export var target: Node3D
+@export var range: float = 100.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,4 +13,5 @@ func _process(delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
-	self.look_at(player.global_position, Vector3.UP)
+	if self.global_position.distance_to(target.global_position) < range:
+		self.look_at(target.global_position, Vector3.UP)

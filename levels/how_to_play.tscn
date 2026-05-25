@@ -1,0 +1,222 @@
+[gd_scene format=3 uid="uid://da8idsvnl81ce"]
+
+[ext_resource type="Texture2D" uid="uid://dmu0yoci84413" path="res://assets/textures/XboxSeriesX_A.png" id="1_cir1q"]
+[ext_resource type="Texture2D" uid="uid://c1qkqlunyetik" path="res://assets/textures/Space_Key_Dark.png" id="2_n6qfq"]
+[ext_resource type="Texture2D" uid="uid://c73wmmlpyylrk" path="res://assets/textures/XboxSeriesX_Left_Stick.png" id="3_e47xd"]
+[ext_resource type="Texture2D" uid="uid://cq5e6ld107pot" path="res://assets/textures/Shift_Key_Dark.png" id="4_2uy0t"]
+[ext_resource type="Texture2D" uid="uid://cpuik2pguf2h6" path="res://assets/textures/XboxSeriesX_RT.png" id="4_wrk7a"]
+[ext_resource type="Texture2D" uid="uid://bknykr3khxv41" path="res://assets/textures/XboxSeriesX_Right_Stick.png" id="6_svj2i"]
+
+[node name="HowToPlay" type="Control" unique_id=94920208]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=979001022]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.100243025, 0.14048743, 0.15811932, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1694960158]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=592074822]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1863417482]
+layout_mode = 2
+theme_override_constants/margin_bottom = 36
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer" unique_id=1508627150]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 24
+text = "No Time for Fakie is a skateboarding time trial game.
+Your goal is to skate through the level  in the fastest time possible."
+horizontal_alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1826705478]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer4" unique_id=2101413565]
+layout_mode = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=426275105]
+position = Vector2(-44, 28)
+texture = ExtResource("1_cir1q")
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=1244430011]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=1486581989]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer/Control2" unique_id=17863509]
+position = Vector2(98, 29)
+texture = ExtResource("2_n6qfq")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=1073396894]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=170892930]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "              to jump"
+
+[node name="MarginContainer5" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1255203733]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer5" unique_id=502614525]
+layout_mode = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=955609373]
+position = Vector2(-44, 28)
+texture = ExtResource("4_wrk7a")
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=1894235610]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=788460129]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer/Control2" unique_id=269005545]
+position = Vector2(90, 29)
+texture = ExtResource("4_2uy0t")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=1468653886]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=1171397996]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "            to boost"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1759030121]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer2" unique_id=814486184]
+layout_mode = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer2/HBoxContainer2" unique_id=816592584]
+position = Vector2(-44, 28)
+texture = ExtResource("3_e47xd")
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer2/HBoxContainer2" unique_id=2063456469]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer2/HBoxContainer2" unique_id=2043885766]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer2/HBoxContainer2" unique_id=61364447]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer2/HBoxContainer2" unique_id=1457042866]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = " WASD to move"
+
+[node name="MarginContainer3" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1117748267]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer3" unique_id=239681201]
+layout_mode = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="CenterContainer/VBoxContainer/MarginContainer3/HBoxContainer2" unique_id=841225986]
+position = Vector2(-44, 28)
+texture = ExtResource("6_svj2i")
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer3/HBoxContainer2" unique_id=1469025978]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer/MarginContainer3/HBoxContainer2" unique_id=45301866]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer3/HBoxContainer2" unique_id=1387909576]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer3/HBoxContainer2" unique_id=226448245]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 32
+text = " Arrow Keys to move the Camera"
+
+[node name="MarginContainer6" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1540452963]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer6" unique_id=883798458]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/VBoxContainer/MarginContainer6/HBoxContainer" unique_id=1480750961]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Colliding with any [color=#158bb9]Blue[/color] objects will allow you to grind them.
+Grinding [color=#158bb9]Blue[/color] objects fills your [color=#cf7132]Boost[/color] Meter!"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="MarginContainer7" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=636966593]
+layout_mode = 2
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer7" unique_id=231500297]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/VBoxContainer/MarginContainer7/HBoxContainer" unique_id=1490499946]
+custom_minimum_size = Vector2(800, 80)
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Gamepad is [color=yellow]HIGHLY[/color] recommended!"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=468814565]
+layout_mode = 0
+offset_left = 1362.0
+offset_top = 996.0
+offset_right = 1875.0
+offset_bottom = 1055.0
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Press [color=red]B[/color] or Esc to close"
+horizontal_alignment = 1

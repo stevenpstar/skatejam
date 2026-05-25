@@ -1,9 +1,19 @@
 [gd_scene format=3 uid="uid://c0horkeywn7dt"]
 
 [ext_resource type="Material" uid="uid://dr065eokt3cqs" path="res://assets/materials/env/building_grey_1.tres" id="1_djipj"]
+[ext_resource type="Script" uid="uid://du0vkru1hda3o" path="res://env/spotlight.gd" id="1_svkei"]
 [ext_resource type="Material" uid="uid://b1rh7cp1grha6" path="res://assets/materials/env/lightpost.tres" id="2_svkei"]
+[ext_resource type="PackedScene" uid="uid://k1e1ffvvk233" path="res://assets/models/lightbeam1.glb" id="4_fkk5l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkk5l"]
+transparency = 1
+cull_mode = 2
+specular_mode = 2
+albedo_color = Color(1, 1, 1, 0.019607844)
+emission = Color(1.636, 1.636, 1.636, 1)
 
 [node name="Spotlight" type="Node3D" unique_id=481202666]
+script = ExtResource("1_svkei")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1932134574]
 spot_range = 43.980988
@@ -20,3 +30,12 @@ transform = Transform3D(5.196, 0, 0, 0, -4.371139e-08, -5.196, 0, 1, -2.2712437e
 radius = 0.317
 sides = 16
 material = ExtResource("2_svkei")
+
+[node name="lightbeam1" parent="." unique_id=2040586073 instance=ExtResource("4_fkk5l")]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, -42.065285)
+
+[node name="Cone" parent="lightbeam1" index="0" unique_id=1135570185]
+transform = Transform3D(1.1215773, 0, 0, 0, 3.135401, 0, 0, 0, 1.1069224, 0, -41.451218, 1.8118902e-06)
+surface_material_override/0 = SubResource("StandardMaterial3D_fkk5l")
+
+[editable path="lightbeam1"]

@@ -11,4 +11,6 @@ func _process(delta: float) -> void:
 func _on_player_entered(body: Node3D) -> void:
 	var player = body as Player
 	if player:
-		player.reset()
+		player.game_state.set_dead()
+		player.game_state.state = player.game_state.GameState.DIED
+		player.stop_sounds_and_particles()

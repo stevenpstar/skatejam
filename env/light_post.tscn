@@ -1,8 +1,22 @@
 [gd_scene format=3 uid="uid://dhhtnt4bvqd65"]
 
 [ext_resource type="PackedScene" uid="uid://bq7qc8qm7q6yi" path="res://assets/models/lightpost.glb" id="1_j7xi3"]
+[ext_resource type="PackedScene" uid="uid://k1e1ffvvk233" path="res://assets/models/lightbeam1.glb" id="2_ejuit"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2338r"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.007843138)
 
 [node name="LightPost" type="Node3D" unique_id=466949529]
 
 [node name="lightpost" parent="." unique_id=1919668233 instance=ExtResource("1_j7xi3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="lightbeam1" parent="." unique_id=2040586073 instance=ExtResource("2_ejuit")]
+transform = Transform3D(1, 0, 0, 0, 0.45258242, 0, 0, 0, 1, 0, 0, 1.396451)
+
+[node name="Cone" parent="lightbeam1" index="0" unique_id=1135570185]
+surface_material_override/0 = SubResource("StandardMaterial3D_2338r")
+
+[editable path="lightbeam1"]

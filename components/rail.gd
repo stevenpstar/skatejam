@@ -28,8 +28,9 @@ func _physics_process(delta: float) -> void:
 	#	follow_path.progress += (entry_velocity / 100.0 + grind_velocity) * dir
 		if  p.grinding_rail.follow_path.progress >= p.grinding_rail.path.curve.get_baked_length():
 			p.stop_grinding()
-			#p.jump(delta)
-			#follow_path.progress_ratio = 0.1
+			if p.charging_jump:
+				p.jump(delta)
+
 
 func set_progress(player_position: Vector3) -> void:
 	var local_pos = path.to_local(player_position)

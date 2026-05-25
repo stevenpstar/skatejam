@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://jsw4s0bkolbe"]
+
+[ext_resource type="Script" uid="uid://bmauva286earh" path="res://levels/story_scene.gd" id="1_o4hxn"]
+[ext_resource type="PackedScene" uid="uid://ciua52wissn83" path="res://levels/loading_scene.tscn" id="2_skeq5"]
+
+[node name="StoryScene" type="Node2D" unique_id=349332388 node_paths=PackedStringArray("loading_scene", "timer")]
+script = ExtResource("1_o4hxn")
+loading_scene = NodePath("LoadingScene/CanvasLayer")
+timer = NodePath("Timer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1814474780]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=916625975]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1975618505]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=100425851]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=1512993561]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1695374251]
+custom_minimum_size = Vector2(800, 450)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "The [b]Authoritarian Government[/b] has cut us off from all communications.
+
+We have lost all contact with our fellow resistance skaters.
+
+You must reach the communications tower, and place an override to grant us back our...
+
+"
+horizontal_alignment = 1
+
+[node name="CONNECTION" type="RichTextLabel" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1795358447]
+custom_minimum_size = Vector2(700, 100)
+layout_mode = 2
+theme_override_colors/default_color = Color(1.409, 0.925, 0.147, 1)
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[b]CONNECTION[/b]
+
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=2081003971]
+layout_mode = 0
+offset_left = 1451.0
+offset_top = 991.0
+offset_right = 1881.0
+offset_bottom = 1062.0
+theme_override_colors/font_color = Color(1.409, 0.925, 0.147, 1)
+theme_override_font_sizes/font_size = 32
+text = "Press Any Key to Continue..."
+
+[node name="LoadingScene" parent="." unique_id=506869870 instance=ExtResource("2_skeq5")]
+
+[node name="CanvasLayer" parent="LoadingScene" index="0" unique_id=1624936021]
+visible = false
+
+[node name="Timer" type="Timer" parent="." unique_id=1934266456]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="LoadingScene"]

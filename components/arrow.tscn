@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b57j1vke68uvf"]
+
+[ext_resource type="Material" uid="uid://go5f468s2r45" path="res://assets/materials/env/arrow_light.tres" id="1_qdehl"]
+
+[node name="Arrow" type="Node3D" unique_id=132625445]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1445766782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3489558, 0, -0.7913281, -0.50322634)
+size = Vector3(1, 2.582871, 1)
+material = ExtResource("1_qdehl")
+
+[node name="ArrowLeft" type="CSGPolygon3D" parent="." unique_id=2023579599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3489558, -1, 0, -0.32675922)
+polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
+material = ExtResource("1_qdehl")
+
+[node name="ArrowLeft2" type="CSGPolygon3D" parent="." unique_id=274588051]
+transform = Transform3D(-1, 0, -3.0506687e-08, 0, 1, 0, 8.742278e-08, 0, -0.3489558, 1, 0, -0.675715)
+polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
+material = ExtResource("1_qdehl")
